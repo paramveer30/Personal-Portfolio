@@ -1,6 +1,22 @@
 @import "tailwindcss";
 
-/* Global styles. The design system (palette, fonts, grain) lands in the next stage. */
+@theme {
+  --color-bg: #606570;
+  --color-surface: #6a6f79;
+  --color-panel: #737884;
+  --color-contrast: #1e1f23;
+  --color-text: #f8f9fa;
+  --color-muted: #e6e8ea;
+  --color-border: rgb(255 255 255 / 16%);
+  --color-accent: #c1123e;
+  --color-accent-deep: #7a003c;
+}
+
+@theme inline {
+  --font-sans: var(--font-josefin-sans), system-ui, sans-serif;
+  --font-hand: var(--font-caveat), ui-serif, cursive;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
 
 *,
 *::before,
@@ -12,4 +28,28 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
