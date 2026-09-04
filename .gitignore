@@ -1,2 +1,36 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+/build
+
+# testing
+/coverage
+
+# misc
+.DS_Store
+*.pem
+*.tsbuildinfo
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env files
+.env*
+
+# editor / tooling
+.vscode/
+.idea/
+.claude/
+
+# project brief and raw source content (not shipped)
+PROMPT.md
 prompt.md
 Param-Contents/
+
+# portrait source photo (see PROMPT.md section 10)
+/assets/portrait-source.*

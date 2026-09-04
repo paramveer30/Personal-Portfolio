@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Global styles. The design system (palette, fonts, grain) lands in the next stage. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
