@@ -46,6 +46,67 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='1.4' cy='1.4' r='1.4' fill='%23eef0f1' fill-opacity='0.07'/%3E%3C/svg%3E");
 }
 
+/* hero background, the same dot pattern but slowly drifting */
+.hero-dots {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%23eef0f1' fill-opacity='0.05'/%3E%3C/svg%3E");
+  animation: heroDrift 70s linear infinite;
+}
+@keyframes heroDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 150px 90px;
+  }
+}
+
+/* faint ring behind the portrait, rotates very slowly */
+.hero-ring {
+  animation: heroSpin 120s linear infinite;
+}
+@keyframes heroSpin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+/* portrait frame, a small slow bob plus a scan line sweeping down */
+.portrait-float {
+  animation: portraitFloat 7s ease-in-out infinite;
+}
+@keyframes portraitFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.portrait-scan {
+  box-shadow: 0 0 12px 1px var(--color-accent);
+  animation: portraitScan 3.4s ease-in-out infinite;
+}
+@keyframes portraitScan {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.7;
+  }
+  88% {
+    opacity: 0.7;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
 /* turns off smooth scroll and shrinks every animation/transition to nothing if the user has reduced motion turned on */
 @media (prefers-reduced-motion: reduce) {
   *,

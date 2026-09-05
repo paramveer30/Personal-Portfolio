@@ -103,6 +103,8 @@ export interface SiteContent {
   favorites: Favorites;
   contact: ContactInfo;
   resumeUrl: string;
+  // hero photo, empty shows a placeholder frame
+  portraitUrl: string;
   references: string[];
 }
 
@@ -316,5 +318,6 @@ export const site: SiteContent = {
   },
 
   resumeUrl: "/resume.pdf",
+  portraitUrl: "",
   references: [],
 };

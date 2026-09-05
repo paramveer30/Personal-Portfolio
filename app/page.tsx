@@ -2,7 +2,9 @@ import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Education } from "@/components/Education";
 import { Experience } from "@/components/Experience";
+import { HeroBackground } from "@/components/HeroBackground";
 import { Journey } from "@/components/Journey";
+import { Portrait } from "@/components/Portrait";
 import { Projects } from "@/components/Projects";
 import { Reveal } from "@/components/Reveal";
 import { Skills } from "@/components/Skills";
@@ -17,34 +19,44 @@ export default function HomePage() {
   return (
     // scroll target for the name link in the header
     <main id="top">
-      <section className="flex min-h-screen flex-col justify-center px-6">
-        <div className="mx-auto w-full max-w-[1120px]">
-          <p className="text-accent font-mono text-xs tracking-[0.16em] uppercase">
-            {site.role} &middot; McMaster University
-          </p>
+      <section className="relative flex min-h-screen items-center overflow-hidden px-6">
+        <HeroBackground />
 
-          <h1 className="mt-3 text-6xl leading-[1.02] font-bold sm:text-7xl">
-            {firstNames} <span className="text-accent">{lastName}</span>
-          </h1>
-
-          <p className="text-muted mt-5 max-w-[560px] text-xl">
-            {site.tagline}
-          </p>
-
-          {/* small terminal flourish, matches the mono labelling used elsewhere */}
-          <div className="text-muted bg-surface border-border mt-6 inline-flex items-center gap-2 rounded-lg border px-4 py-2 font-mono text-xs">
-            <span className="text-accent">$</span> whoami &rarr;{" "}
-            <span className="text-text">paramveer.multani</span>
+        <div className="relative z-10 mx-auto grid w-full max-w-[1120px] items-center gap-12 md:grid-cols-2">
+          {/* photo on the left on desktop, below the name on mobile */}
+          <div className="order-2 md:order-1">
+            <Portrait />
           </div>
 
-          <div className="mt-8">
-            <a
-              href="#contact"
-              // the box-shadow is the red glow, an arbitrary value since it is a one off
-              className="bg-accent text-text inline-flex items-center gap-2 rounded-lg px-6 py-3.5 text-sm font-medium shadow-[0_0_26px_rgba(193,18,62,0.35)]"
+          {/* name and short bio, sits in the right half on desktop */}
+          <div className="order-1 md:order-2">
+            <p className="text-accent font-mono text-xs tracking-[0.16em] uppercase">
+              {site.role} &middot; McMaster University
+            </p>
+
+            {/* aria-label keeps the name one phrase for screen readers despite the line break */}
+            <h1
+              aria-label={site.name}
+              className="mt-3 text-6xl leading-[1.03] font-bold sm:text-7xl lg:text-8xl"
             >
-              Get in touch &rarr;
-            </a>
+              {firstNames}
+              <br />
+              <span className="text-accent">{lastName}</span>
+            </h1>
+
+            <p className="text-muted mt-6 max-w-[420px] text-lg leading-relaxed">
+              {site.bioShort}
+            </p>
+
+            <div className="mt-8">
+              <a
+                href="#contact"
+                // the box-shadow is the red glow, an arbitrary value since it is a one off
+                className="bg-accent text-text inline-flex items-center gap-2 rounded-lg px-6 py-3.5 text-sm font-medium shadow-[0_0_26px_rgba(193,18,62,0.35)]"
+              >
+                Get in touch &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </section>
