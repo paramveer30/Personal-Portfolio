@@ -1,4 +1,5 @@
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
+import { site } from "@/content/site";
 
 const footerLinks = [
   { href: "#about", label: "About" },
@@ -18,7 +19,7 @@ export function Footer() {
       <div className="text-muted mx-auto flex max-w-[1080px] flex-col gap-6 px-6 py-10 text-sm sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-text font-mono text-xs tracking-wider uppercase">
-            Paramveer Multani
+            {site.name}
           </p>
           <p className="mt-1 text-xs">&copy; {year}. All rights reserved.</p>
         </div>
@@ -36,7 +37,7 @@ export function Footer() {
 
         <div className="flex items-center gap-4 font-mono text-xs tracking-wider uppercase">
           <a
-            href="https://github.com/paramveer30"
+            href={site.contact.github}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -45,7 +46,7 @@ export function Footer() {
             <GithubIcon />
           </a>
           <a
-            href="#"
+            href={site.contact.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -53,7 +54,7 @@ export function Footer() {
           >
             <LinkedinIcon />
           </a>
-          <a href="/resume.pdf" className="hover:text-accent">
+          <a href={site.resumeUrl} className="hover:text-accent">
             Resume
           </a>
           {/* jumps back to the id="top" on main in page.tsx */}

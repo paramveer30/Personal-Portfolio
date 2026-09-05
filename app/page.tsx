@@ -1,11 +1,13 @@
+import { site } from "@/content/site";
+
 export default function HomePage() {
   return (
     // scroll target for the name link in the header
     <main id="top">
       <section className="flex min-h-screen items-center justify-center px-6">
         <div>
-          <h1 className="text-text text-5xl font-bold">Paramveer Multani</h1>
-          <p className="text-muted mt-4">Portfolio in progress.</p>
+          <h1 className="text-text text-5xl font-bold">{site.name}</h1>
+          <p className="text-muted mt-4">{site.tagline}</p>
         </div>
       </section>
 
