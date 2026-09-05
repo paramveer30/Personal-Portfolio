@@ -41,7 +41,7 @@ export interface ProjectItem {
 export interface SkillGroup {
   category: string;
   items: string[];
-  // rough self rating, 1 to 10
+  // rough self rating, 1 to 10, todo until param sets a real number
   level: number;
 }
 
@@ -87,38 +87,66 @@ export interface SiteContent {
 
 export const site: SiteContent = {
   name: "Paramveer Multani",
-  role: "Computer Engineering Student",
+  role: "Computer Engineering Co-op Student",
   tagline:
-    "I build things that live on the web, and I make them feel considered.",
-  bioShort: "Computer Engineering student at McMaster University.",
+    "I take systems apart to understand them, then build something better with what I learn.",
+  bioShort:
+    "Computer Engineering co-op student at McMaster University, working across software, embedded systems, and hardware diagnostics.",
   bio: [
-    "todo, replace with a real 2 to 3 paragraph bio",
-    "todo, second paragraph",
+    "I'm a Computer Engineering co-op student at McMaster University. I've done instrument diagnostics and calibration tooling at Hoskin Scientific, and I keep a part time technical role at BS Transportation running alongside school.",
+    "Outside of coursework I build my own projects, usually something that involves pulling a system apart to see how it actually works. Recent ones include reverse engineering a board game's network protocol and building a 3D spatial mapping rig from a time of flight sensor.",
   ],
-  location: "Hamilton, Ontario",
+  location: "Toronto, Ontario",
   availability: "Open to connecting",
 
   about: {
-    approach: "todo, a short paragraph on how param approaches problems",
-    whatIDo: "todo, a short paragraph on what param actually works on",
+    approach:
+      "I like to fully understand a system before I touch it, whether that means tracing a wiring harness by hand or decoding an undocumented network protocol frame by frame.",
+    whatIDo:
+      "Right now that's a mix of coursework, a couple of personal engineering projects, and part time technical work.",
   },
 
   stats: [
-    { label: "Projects completed", value: "0" },
-    { label: "Years experience", value: "0" },
-    { label: "Technologies", value: "0" },
+    { label: "Projects shipped", value: "3" },
+    { label: "Years experience", value: "5+" },
+    { label: "Technologies", value: "20+" },
   ],
 
   experience: [
     {
-      title: "todo, job title",
-      company: "todo, company",
-      location: "todo, city",
+      title: "Instrument Technician Intern",
+      company: "Hoskin Scientific",
+      location: "Oakville, ON",
       type: "internship",
-      start: "todo",
-      end: "todo",
-      bullets: ["todo, responsibility or achievement"],
-      skills: ["todo"],
+      start: "May 2026",
+      end: "Sep 2026",
+      bullets: [
+        "Built a browser based offline tool in JavaScript and ExcelJS that parses instrument CSV exports into calibration worksheets, cutting report prep from 10 minutes to under 1.",
+        "Pitched the tool to management unprompted. It was approved and deployed to all Hoskin offices across Canada, supporting 20+ calibration reports daily.",
+        "Performed PCB level diagnostics on 100+ scientific instruments, isolating failed components via multimeter testing and restoring function through resoldering and part replacement.",
+        "Executed lifecycle testing and certification across YSI, DJI, Sontek, and TSI lines, covering calibration, continuity testing, firmware updates, and manufacturer escalation.",
+      ],
+      skills: [
+        "JavaScript",
+        "ExcelJS",
+        "PCB Diagnostics",
+        "Multimeter Testing",
+        "Soldering",
+      ],
+    },
+    {
+      title: "Operations & Technical Assistant",
+      company: "BS Transportation",
+      location: "Hamilton, ON",
+      type: "part time",
+      start: "2021",
+      end: "Present",
+      bullets: [
+        "Automated Avaal freight manifest generation with a Python script, cutting per manifest time from 5 minutes to under 2 and recovering 50+ hours a year.",
+        "Rebuilt payroll and expense tracking in Excel, replacing manual entry and reducing transcription errors across weekly reporting.",
+        "Diagnosed and repaired truck electrical systems by tracing and reorganizing wiring, cutting diagnostic time 25 percent and fleet downtime 20 percent.",
+      ],
+      skills: ["Python", "Excel", "Electrical Diagnostics"],
     },
   ],
 
@@ -126,51 +154,127 @@ export const site: SiteContent = {
     {
       school: "McMaster University",
       url: "https://www.mcmaster.ca",
-      credential: "B.Eng. Computer Engineering",
+      credential: "B.Eng. Computer Engineering (Co-op)",
       start: "todo",
-      end: "todo",
-      average: "todo",
-      focus: ["todo"],
-      honors: [],
+      end: "Apr 2029",
+      average: "3.5",
+      focus: [
+        "Algorithm Design and Analysis",
+        "Data Structures and Algorithms",
+        "Software Development",
+        "Artificial Intelligence",
+        "Digital System Design",
+        "Computer Systems Integration",
+        "Microprocessors",
+        "Electronic Devices and Circuits",
+      ],
+      honors: ["First Year Deans Honour Roll"],
     },
   ],
 
   projects: [
     {
-      title: "todo, project title",
-      category: "web app",
-      description: "todo, a sentence describing the project",
-      tech: ["todo"],
+      title: "Catan Coach AI",
+      category: "AI / Tooling",
+      description:
+        "A headless Catan engine that reverse engineers colonist.io's undocumented websocket protocol, then uses expectimax and MCTS search to power a live coaching overlay and post game review.",
+      tech: [
+        "Python",
+        "NumPy",
+        "FastAPI",
+        "TypeScript",
+        "Next.js",
+        "WebSockets",
+      ],
+    },
+    {
+      title: "Spatial Mapping Using Time-of-Flight Sensor",
+      category: "Embedded Systems",
+      description:
+        "An embedded 360 degree spatial mapping system built with a VL53L1X time of flight sensor and a stepper motor, reconstructing 3D models of indoor spaces from I2C and UART data.",
+      tech: ["C++", "I2C", "UART", "VL53L1X"],
+    },
+    {
+      title: "Automated Baggage Handling System",
+      category: "Robotics / Team Project",
+      description:
+        "A luggage routing system built with a Q-Arm, servo table, and barcode scanner, with Python control algorithms reaching 88 percent seat detection accuracy.",
+      tech: ["Python", "Q-Arm"],
     },
   ],
 
   skills: [
-    { category: "Frontend", items: ["todo"], level: 5 },
-    { category: "Backend", items: ["todo"], level: 5 },
+    {
+      category: "Languages",
+      items: [
+        "Python",
+        "C/C++",
+        "JavaScript",
+        "TypeScript",
+        "MATLAB",
+        "R",
+        "LaTeX",
+      ],
+      level: 7,
+    },
+    {
+      category: "Frameworks & Tools",
+      items: [
+        "Git",
+        "GitHub",
+        "FastAPI",
+        "NumPy",
+        "pytest",
+        "React",
+        "Next.js",
+        "Chrome Extensions (Manifest V3)",
+        "WebSockets",
+        "ExcelJS",
+        "Linux",
+        "VS Code",
+        "AutoCAD",
+      ],
+      level: 7,
+    },
+    {
+      category: "Hardware",
+      items: [
+        "PCB Diagnostics",
+        "Soldering",
+        "Multimeter Testing",
+        "Arduino",
+        "MSP432E401Y",
+        "VL53L1X ToF",
+        "Quanser",
+        "Digilent Analog Discovery",
+        "3D Printing (Prusa)",
+      ],
+      level: 7,
+    },
   ],
 
-  skillHighlights: ["todo"],
+  skillHighlights: ["Python", "React", "Next.js", "FastAPI"],
 
   passions: [
-    { key: "travel", title: "Travel", blurb: "todo, one sentence", images: [] },
-    { key: "birds", title: "Birds", blurb: "todo, one sentence", images: [] },
-    {
-      key: "cooking-family",
-      title: "Cooking & Family",
-      blurb: "todo, one sentence",
-      images: [],
-    },
     {
       key: "basketball",
       title: "Basketball",
       blurb: "todo, one sentence",
       images: [],
     },
+    { key: "chess", title: "Chess", blurb: "todo, one sentence", images: [] },
+    { key: "hiking", title: "Hiking", blurb: "todo, one sentence", images: [] },
+    {
+      key: "hip-hop",
+      title: "Hip-Hop",
+      blurb: "todo, one sentence",
+      images: [],
+    },
   ],
 
   contact: {
-    email: "todo@example.com",
-    linkedin: "todo, linkedin url",
+    email: "multap1@mcmaster.ca",
+    linkedin: "https://linkedin.com/in/paramveermt",
     github: "https://github.com/paramveer30",
     instagram: "todo, instagram url",
     formAccessKey: "",
