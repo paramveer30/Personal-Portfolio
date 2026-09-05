@@ -15,6 +15,8 @@ export interface ExperienceItem {
   end: string;
   bullets: string[];
   skills: string[];
+  // company logo, todo until param sends one
+  logoUrl?: string;
 }
 
 export interface EducationItem {
@@ -52,6 +54,23 @@ export interface PassionItem {
   images: string[];
 }
 
+export interface FavoriteMovie {
+  title: string;
+  posterUrl?: string;
+}
+
+export interface Favorites {
+  rapper: string;
+  movies: FavoriteMovie[];
+  song: string;
+  songArtist: string;
+  // spotify link, todo until param sends one
+  songUrl?: string;
+  // album art, todo until param sends one
+  albumArtUrl?: string;
+  ufcFighter: string;
+}
+
 export interface ContactInfo {
   email: string;
   linkedin: string;
@@ -80,6 +99,7 @@ export interface SiteContent {
   skills: SkillGroup[];
   skillHighlights: string[];
   passions: PassionItem[];
+  favorites: Favorites;
   contact: ContactInfo;
   resumeUrl: string;
   references: string[];
@@ -270,7 +290,21 @@ export const site: SiteContent = {
       blurb: "todo, one sentence",
       images: [],
     },
+    { key: "travel", title: "Travel", blurb: "todo, one sentence", images: [] },
   ],
+
+  favorites: {
+    rapper: "Drake",
+    movies: [
+      { title: "Se7en", posterUrl: "" },
+      { title: "3 Idiots", posterUrl: "" },
+    ],
+    song: "Superpowers",
+    songArtist: "Daniel Caesar",
+    songUrl: "",
+    albumArtUrl: "",
+    ufcFighter: "Carlos Prates",
+  },
 
   contact: {
     email: "multap1@mcmaster.ca",

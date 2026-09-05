@@ -1,3 +1,9 @@
+import { About } from "@/components/About";
+import { Contact } from "@/components/Contact";
+import { Experience } from "@/components/Experience";
+import { Journey } from "@/components/Journey";
+import { Projects } from "@/components/Projects";
+import { Skills } from "@/components/Skills";
 import { site } from "@/content/site";
 
 export default function HomePage() {
@@ -11,32 +17,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* empty placeholders, real content lands in later stages */}
-      {/* scroll-mt-20 leaves space above the section so the sticky nav does not cover it when you jump here */}
-      <section
-        id="about"
-        className="border-border min-h-[50vh] scroll-mt-20 border-t"
-      />
-      <section
-        id="journey"
-        className="border-border min-h-[50vh] scroll-mt-20 border-t"
-      />
-      <section
-        id="experience"
-        className="border-border min-h-[50vh] scroll-mt-20 border-t"
-      />
-      <section
-        id="projects"
-        className="border-border min-h-[50vh] scroll-mt-20 border-t"
-      />
-      <section
-        id="skills"
-        className="border-border min-h-[50vh] scroll-mt-20 border-t"
-      />
-      <section
-        id="contact"
-        className="border-border min-h-[50vh] scroll-mt-20 border-t"
-      />
+      <About />
+      <Journey />
+      <Experience />
+      <Projects />
+      <Skills />
+      <Contact />
     </main>
   );
 }
