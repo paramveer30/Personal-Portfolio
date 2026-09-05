@@ -52,7 +52,7 @@ export default function HomePage() {
               <a
                 href="#contact"
                 // the box-shadow is the red glow, an arbitrary value since it is a one off
-                className="bg-accent text-text inline-flex items-center gap-2 rounded-lg px-6 py-3.5 text-sm font-medium shadow-[0_0_26px_rgba(193,18,62,0.35)]"
+                className="bg-accent text-text inline-flex items-center gap-2 rounded-lg px-6 py-3.5 text-sm font-medium shadow-[0_10px_24px_rgba(0,0,0,0.18)]"
               >
                 Get in touch &rarr;
               </a>

@@ -6,6 +6,8 @@ export function HeroBackground() {
       className="pointer-events-none absolute inset-0 overflow-hidden"
     >
       <div className="hero-dots absolute inset-0" />
+      {/* oversized so the drift never reveals an edge */}
+      <div className="hero-grain absolute inset-[-8%]" />
 
       {/* two faint concentric rings, roughly behind where the portrait sits */}
       <svg

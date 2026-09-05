@@ -141,7 +141,7 @@ export function Contact() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="bg-accent text-text w-fit rounded-md px-6 py-3 text-sm font-medium shadow-[0_0_26px_rgba(193,18,62,0.35)] disabled:opacity-60"
+            className="bg-accent text-text w-fit rounded-md px-6 py-3 text-sm font-medium shadow-[0_10px_24px_rgba(0,0,0,0.18)] disabled:opacity-60"
           >
             {status === "loading" ? "Sending..." : "Send"}
           </button>

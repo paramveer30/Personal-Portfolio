@@ -2,15 +2,15 @@
 
 /* these become tailwind utilities automatically, --color-bg gives you bg-bg, text-bg, border-bg and so on */
 @theme {
-  --color-bg: #101113;
-  --color-surface: #1b1d20;
-  --color-panel: #202226;
-  --color-contrast: #000000;
-  --color-text: #eef0f1;
-  --color-muted: #71767c;
-  --color-border: rgb(255 255 255 / 8%);
-  --color-accent: #c1123e;
-  --color-accent-deep: #7a003c;
+  --color-bg: #aaaaaa;
+  --color-surface: #b5b5b5;
+  --color-panel: #9d9d9d;
+  --color-contrast: #8f8f8f;
+  --color-text: #18181a;
+  --color-muted: #3b3b3d;
+  --color-border: rgb(0 0 0 / 15%);
+  --color-accent: #7a003c;
+  --color-accent-deep: #5c0030;
 }
 
 /* inline because the font values come from the css variables next/font sets on the html tag, not a fixed value here */
@@ -36,20 +36,45 @@ body {
   scroll-behavior: smooth;
 }
 
-/* faint dot pattern as a background image, sits above everything but pointer-events none lets clicks pass through it */
+/* faint dark dot pattern over the grey, pointer-events none lets clicks pass through it */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='1.4' cy='1.4' r='1.4' fill='%23eef0f1' fill-opacity='0.07'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='1.4' cy='1.4' r='1.4' fill='%23000000' fill-opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* hero background, the same dot pattern but slowly drifting */
+/* hero background, dark dots slowly drifting over the grey */
 .hero-dots {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%23eef0f1' fill-opacity='0.05'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%23000000' fill-opacity='0.045'/%3E%3C/svg%3E");
   animation: heroDrift 70s linear infinite;
+}
+
+/* animated film grain, gives the flat grey some tooth */
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+  animation: grainShift 6s steps(4) infinite;
+}
+@keyframes grainShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-4%, 3%);
+  }
+  50% {
+    transform: translate(3%, -5%);
+  }
+  75% {
+    transform: translate(-3%, -2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 @keyframes heroDrift {
   from {
