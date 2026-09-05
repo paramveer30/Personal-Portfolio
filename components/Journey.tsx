@@ -16,7 +16,7 @@ export function Journey() {
           {site.passions.map((passion) => (
             <div
               key={passion.key}
-              className="border-border bg-surface overflow-hidden rounded-lg border"
+              className="border-border bg-surface overflow-hidden rounded-lg border transition-transform hover:-translate-y-1"
             >
               {/* first photo in the array is the cover shot, rest would go in a gallery later */}
               <MediaSlot
