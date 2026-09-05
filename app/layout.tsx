@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Caveat, JetBrains_Mono, Josefin_Sans } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
 
-const josefinSans = Josefin_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-josefin-sans",
-  display: "swap",
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  variable: "--font-caveat",
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -31,7 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${josefinSans.variable} ${caveat.variable} ${jetbrainsMono.variable}`}
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body>{children}</body>
     </html>
