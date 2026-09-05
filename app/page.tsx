@@ -4,6 +4,7 @@ import { Education } from "@/components/Education";
 import { Experience } from "@/components/Experience";
 import { Journey } from "@/components/Journey";
 import { Projects } from "@/components/Projects";
+import { Reveal } from "@/components/Reveal";
 import { Skills } from "@/components/Skills";
 import { site } from "@/content/site";
 
@@ -18,13 +19,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      <About />
-      <Journey />
-      <Experience />
-      <Education />
-      <Projects />
-      <Skills />
-      <Contact />
+      {/* each section fades and rises in the first time it scrolls into view */}
+      <Reveal>
+        <About />
+      </Reveal>
+      <Reveal>
+        <Journey />
+      </Reveal>
+      <Reveal>
+        <Experience />
+      </Reveal>
+      <Reveal>
+        <Education />
+      </Reveal>
+      <Reveal>
+        <Projects />
+      </Reveal>
+      <Reveal>
+        <Skills />
+      </Reveal>
+      <Reveal>
+        <Contact />
+      </Reveal>
     </main>
   );
 }
