@@ -92,6 +92,7 @@ export function Contact() {
           </p>
         </div>
 
+        {/* noValidate turns off the browser's own error popups, handleSubmit checks everything instead so every error looks the same */}
         <form
           onSubmit={handleSubmit}
           noValidate

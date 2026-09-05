@@ -18,6 +18,7 @@ export function Journey() {
               key={passion.key}
               className="border-border bg-surface overflow-hidden rounded-lg border"
             >
+              {/* first photo in the array is the cover shot, rest would go in a gallery later */}
               <MediaSlot
                 src={passion.images[0]}
                 alt={passion.title}

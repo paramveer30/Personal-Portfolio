@@ -11,8 +11,10 @@ export function About() {
         <Kicker>About</Kicker>
         <h2 className="text-text mt-2 text-3xl font-bold">A bit about me</h2>
 
+        {/* left column wider than the right, bio needs more room than the stat cards do */}
         <div className="mt-10 grid gap-10 md:grid-cols-[1.4fr_1fr]">
           <div className="flex flex-col gap-4">
+            {/* using the paragraph text itself as the key, fine here since bio is short and never reorders */}
             {site.bio.map((paragraph) => (
               <p key={paragraph} className="text-muted leading-relaxed">
                 {paragraph}

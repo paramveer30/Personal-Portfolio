@@ -42,6 +42,7 @@ export function Projects() {
                 ))}
               </div>
 
+              {/* only shows the link row if at least one url exists, none of the three projects have one yet */}
               {(project.demoUrl ?? project.sourceUrl) ? (
                 <div className="mt-2 flex gap-4 font-mono text-xs tracking-wider uppercase">
                   {project.demoUrl ? (

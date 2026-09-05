@@ -20,6 +20,8 @@ export function MediaSlot({ src, alt, label, className = "" }: MediaSlotProps) {
   }
 
   return (
+    // fill makes the image stretch to match this wrapper instead of needing a fixed width and height,
+    // it needs position relative on the wrapper to know what to fill
     <div className={`relative overflow-hidden rounded-md ${className}`}>
       <Image src={src} alt={alt} fill className="object-cover" sizes="200px" />
     </div>

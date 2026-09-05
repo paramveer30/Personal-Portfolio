@@ -59,6 +59,7 @@ export interface FavoriteMovie {
   posterUrl?: string;
 }
 
+// small personality section, not from the resume, param gave these directly
 export interface Favorites {
   rapper: string;
   movies: FavoriteMovie[];
