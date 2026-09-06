@@ -65,7 +65,7 @@ export function Nav() {
           </a>
           <a
             href={site.resumeUrl}
-            className="bg-accent text-text rounded-md px-4 py-2 font-sans text-xs font-medium normal-case"
+            className="bg-accent text-contrast rounded-md px-4 py-2 font-sans text-xs font-medium normal-case"
           >
             Resume
           </a>
