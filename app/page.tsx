@@ -15,6 +15,9 @@ const nameParts = site.name.split(" ");
 const firstNames = nameParts.slice(0, -1).join(" ");
 const lastName = nameParts[nameParts.length - 1];
 
+// temporary, flip to true to bring every section back
+const SHOW_SECTIONS = false;
+
 export default function HomePage() {
   return (
     // scroll target for the name link in the header
@@ -63,27 +66,31 @@ export default function HomePage() {
       </section>
 
       {/* each section fades and rises in the first time it scrolls into view */}
-      <Reveal>
-        <About />
-      </Reveal>
-      <Reveal>
-        <Journey />
-      </Reveal>
-      <Reveal>
-        <Experience />
-      </Reveal>
-      <Reveal>
-        <Education />
-      </Reveal>
-      <Reveal>
-        <Projects />
-      </Reveal>
-      <Reveal>
-        <Skills />
-      </Reveal>
-      <Reveal>
-        <Contact />
-      </Reveal>
+      {SHOW_SECTIONS && (
+        <>
+          <Reveal>
+            <About />
+          </Reveal>
+          <Reveal>
+            <Journey />
+          </Reveal>
+          <Reveal>
+            <Experience />
+          </Reveal>
+          <Reveal>
+            <Education />
+          </Reveal>
+          <Reveal>
+            <Projects />
+          </Reveal>
+          <Reveal>
+            <Skills />
+          </Reveal>
+          <Reveal>
+            <Contact />
+          </Reveal>
+        </>
+      )}
     </main>
   );
 }
