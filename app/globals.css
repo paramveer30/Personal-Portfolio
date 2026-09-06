@@ -1,14 +1,42 @@
 @import "tailwindcss";
 
-/* edit these to retheme the whole site, plain css variables so they hot-reload live */
+/* light palette, the default. plain css variables so they hot-reload live */
 :root {
-  --bg: #14000c;
-  --surface: #4b1621;
-  --panel: #360d15;
-  --contrast: #240810;
-  --text: #f2ece9;
-  --muted: #c9a9af;
-  --border: rgb(255 255 255 / 12%);
+  --bg: #f5efe4;
+  --surface: #fdfaf3;
+  --panel: #ece3d2;
+  --contrast: #2a2420;
+  --text: #2c2622;
+  --muted: #7c7267;
+  --border: rgb(44 38 34 / 12%);
+  --accent: #b47b34;
+  --accent-deep: #935f27;
+}
+
+/* dark palette, used when the os asks for dark and the visitor has not forced light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1e1a16;
+    --surface: #292420;
+    --panel: #221d19;
+    --contrast: #14100d;
+    --text: #f3ece1;
+    --muted: #a89c8d;
+    --border: rgb(243 236 225 / 12%);
+    --accent: #d8b27a;
+    --accent-deep: #b98f56;
+  }
+}
+
+/* dark palette again, so an explicit toggle to dark wins even on a light os */
+:root[data-theme="dark"] {
+  --bg: #1e1a16;
+  --surface: #292420;
+  --panel: #221d19;
+  --contrast: #14100d;
+  --text: #f3ece1;
+  --muted: #a89c8d;
+  --border: rgb(243 236 225 / 12%);
   --accent: #d8b27a;
   --accent-deep: #b98f56;
 }
@@ -48,19 +76,19 @@ body {
   scroll-behavior: smooth;
 }
 
-/* faint light dot pattern over the dark ground */
+/* faint dot texture, mid grey so it reads on both the cream and the dark grounds */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='1.4' cy='1.4' r='1.4' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='1.4' cy='1.4' r='1.4' fill='%23808080' fill-opacity='0.06'/%3E%3C/svg%3E");
 }
 
 /* hero background, faint dots slowly drifting */
 .hero-dots {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%23808080' fill-opacity='0.06'/%3E%3C/svg%3E");
   animation: heroDrift 70s linear infinite;
 }
 
@@ -110,7 +138,7 @@ body::after {
   }
 }
 
-/* portrait frame, a small slow bob plus a scan line sweeping down */
+/* portrait frame, a small slow bob */
 .portrait-float {
   animation: portraitFloat 7s ease-in-out infinite;
 }
@@ -123,23 +151,13 @@ body::after {
     transform: translateY(-8px);
   }
 }
-.portrait-scan {
-  box-shadow: 0 0 12px 1px var(--accent);
-  animation: portraitScan 3.4s ease-in-out infinite;
+
+/* blinking caret for the typing line */
+.caret {
+  animation: caret 1s step-end infinite;
 }
-@keyframes portraitScan {
-  0% {
-    top: 0;
-    opacity: 0;
-  }
-  12% {
-    opacity: 0.7;
-  }
-  88% {
-    opacity: 0.7;
-  }
-  100% {
-    top: 100%;
+@keyframes caret {
+  50% {
     opacity: 0;
   }
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { site } from "@/content/site";
 
 // nav items as plain data for now, moves into content/site.ts once section content exists
@@ -37,7 +38,7 @@ export function Nav() {
 
         <div className="flex items-center gap-4">
           <div className="hidden items-center gap-2 sm:flex">
-            {/* box-shadow is a soft red glow, same treatment as the hero */}
+            {/* small accent dot with a faint glow */}
             <span
               className="bg-accent h-1.5 w-1.5 rounded-full shadow-[0_0_5px_0_var(--accent)]"
               aria-hidden="true"
@@ -63,6 +64,7 @@ export function Nav() {
           >
             <LinkedinIcon />
           </a>
+          <ThemeToggle />
           <a
             href={site.resumeUrl}
             className="bg-accent text-contrast rounded-md px-4 py-2 font-sans text-xs font-medium normal-case"

@@ -5,6 +5,7 @@ import {
   JetBrains_Mono,
   Space_Grotesk,
 } from "next/font/google";
+import Script from "next/script";
 
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
@@ -44,6 +45,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${dancingScript.variable}`}
     >
+      {/* runs before paint, only forces a theme when the visitor has an explicit saved choice */}
+      <Script id="theme-init" strategy="beforeInteractive">
+        {`try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`}
+      </Script>
       <body>
         <Nav />
         {/* children is whatever page.tsx is being rendered, nav and footer wrap around it automatically */}
