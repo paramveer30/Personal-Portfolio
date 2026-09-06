@@ -278,22 +278,61 @@ export const site: SiteContent = {
 
   skillHighlights: ["Python", "React", "Next.js", "FastAPI"],
 
+  // draft blurbs, Param to rewrite in his own voice
   passions: [
     {
       key: "basketball",
       title: "Basketball",
-      blurb: "todo, one sentence",
-      images: [],
+      blurb:
+        "Pickup runs when I can find one, and a Raptors game whenever I can get a ticket.",
+      images: ["/journey/basketball/1.jpg", "/journey/basketball/2.jpg"],
     },
-    { key: "chess", title: "Chess", blurb: "todo, one sentence", images: [] },
-    { key: "hiking", title: "Hiking", blurb: "todo, one sentence", images: [] },
     {
-      key: "hip-hop",
-      title: "Hip-Hop",
-      blurb: "todo, one sentence",
+      key: "travel",
+      title: "Travelling",
+      blurb:
+        "Any excuse to be somewhere new, dunes, canals, a coastline I have not seen yet.",
+      images: [
+        "/journey/travel/1.jpg",
+        "/journey/travel/2.jpg",
+        "/journey/travel/3.jpg",
+        "/journey/travel/4.jpg",
+        "/journey/travel/5.jpg",
+        "/journey/travel/6.jpg",
+        "/journey/travel/7.jpg",
+      ],
+    },
+    {
+      key: "cars",
+      title: "Cars",
+      blurb:
+        "I walk the whole auto show floor every year and still leave wanting more.",
+      images: ["/journey/cars/1.jpg", "/journey/cars/2.jpg"],
+    },
+    {
+      key: "music",
+      title: "Live music",
+      blurb: "A packed arena with the lights down is hard to beat.",
+      images: ["/journey/music/1.jpg"],
+    },
+    {
+      key: "outdoors",
+      title: "Getting outside",
+      blurb:
+        "Early starts by the lake, farm animals, chasing a decent sunrise.",
+      images: [
+        "/journey/outdoors/1.jpg",
+        "/journey/outdoors/2.jpg",
+        "/journey/outdoors/3.jpg",
+        "/journey/outdoors/4.jpg",
+      ],
+    },
+    {
+      key: "food",
+      title: "Food",
+      blurb: "Always down to try the spot everyone keeps talking about.",
       images: [],
     },
-    { key: "travel", title: "Travel", blurb: "todo, one sentence", images: [] },
   ],
 
   favorites: {

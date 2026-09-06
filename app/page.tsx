@@ -131,9 +131,8 @@ export default function HomePage() {
       <Reveal>
         <About />
       </Reveal>
-      <Reveal>
-        <Journey />
-      </Reveal>
+      {/* journey handles its own reveal so the cards can stagger in */}
+      <Journey />
       <Reveal>
         <Experience />
       </Reveal>

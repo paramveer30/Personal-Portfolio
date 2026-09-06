@@ -150,6 +150,35 @@ body::after {
   }
 }
 
+/* gentle idle bob for the passion icons in the journey section */
+.idle-float {
+  animation: idleFloat 4.5s ease-in-out infinite;
+}
+@keyframes idleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* equaliser bars for the now spinning tile */
+.eq-bar {
+  transform-origin: bottom;
+  animation: eqBar 800ms ease-in-out infinite;
+}
+@keyframes eqBar {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
 /* scroll cue at the bottom of the hero, a gentle bob */
 .scroll-cue {
   animation: scrollBob 2.4s ease-in-out infinite;
