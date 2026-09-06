@@ -5,9 +5,9 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="border-border bg-surface scroll-mt-20 border-t px-6 py-20"
+      className="border-border bg-surface min-h-screen scroll-mt-20 border-t px-6 py-24"
     >
-      <div className="mx-auto max-w-[1080px]">
+      <div className="mx-auto w-full max-w-[1080px]">
         <Kicker>Skills</Kicker>
         <h2 className="text-text mt-2 text-3xl font-bold">What I work with</h2>
 

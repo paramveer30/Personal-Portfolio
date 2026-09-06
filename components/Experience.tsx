@@ -8,7 +8,7 @@ export function Experience() {
     // scroll-mt-20 keeps the sticky nav from covering the heading when you jump here
     <section
       id="experience"
-      className="bg-panel border-border scroll-mt-20 border-t px-6 py-20"
+      className="bg-panel border-border min-h-screen scroll-mt-20 border-t px-6 py-24"
     >
       {/* narrower column than the rest of the page, reads better for a resume style list */}
       <div className="mx-auto max-w-[760px]">

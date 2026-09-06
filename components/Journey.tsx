@@ -6,7 +6,7 @@ export function Journey() {
   return (
     <section
       id="journey"
-      className="border-border scroll-mt-20 border-t px-6 py-20"
+      className="border-border min-h-screen scroll-mt-20 border-t px-6 py-24"
     >
       <div className="mx-auto max-w-[1080px]">
         <Kicker>Journey</Kicker>

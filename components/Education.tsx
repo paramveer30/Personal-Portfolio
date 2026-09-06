@@ -3,10 +3,12 @@ import { site } from "@/content/site";
 
 export function Education() {
   return (
-    // same bg-panel as Experience so the two read as one continuous panel
-    <section id="education" className="bg-panel scroll-mt-20 px-6 pb-20">
-      {/* border is on the inner column, not the whole section, so it lines up with the content above */}
-      <div className="border-border mx-auto max-w-[760px] border-t pt-10">
+    // same bg-panel as Experience so the two still read as one material
+    <section
+      id="education"
+      className="bg-panel min-h-screen scroll-mt-20 px-6 py-24"
+    >
+      <div className="mx-auto w-full max-w-[760px]">
         <Kicker>Education</Kicker>
 
         <div className="mt-6 flex flex-col gap-8">

@@ -76,6 +76,18 @@ body {
   scroll-behavior: smooth;
 }
 
+/* full height sections that click to their top edge as you scroll near them */
+/* proximity not mandatory so a section taller than the screen never traps the scroll */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+  main > section,
+  main > div > section {
+    scroll-snap-align: start;
+  }
+}
+
 /* faint dot texture, mid grey so it reads on both the cream and the dark grounds */
 body::after {
   content: "";

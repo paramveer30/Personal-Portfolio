@@ -5,9 +5,9 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="border-border scroll-mt-20 border-t px-6 py-20"
+      className="border-border min-h-screen scroll-mt-20 border-t px-6 py-24"
     >
-      <div className="mx-auto max-w-[1080px]">
+      <div className="mx-auto w-full max-w-[1080px]">
         <Kicker>Projects</Kicker>
         <h2 className="text-text mt-2 text-3xl font-bold">
           Things I&apos;ve built

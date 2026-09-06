@@ -81,9 +81,9 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="bg-contrast border-border scroll-mt-20 border-t px-6 py-20"
+      className="bg-contrast border-border min-h-screen scroll-mt-20 border-t px-6 py-24"
     >
-      <div className="mx-auto flex max-w-[760px] flex-col gap-8">
+      <div className="mx-auto flex w-full max-w-[760px] flex-col gap-8">
         <div>
           <Kicker>Contact</Kicker>
           <h2 className="text-text mt-2 text-3xl font-bold">Let&apos;s talk</h2>
