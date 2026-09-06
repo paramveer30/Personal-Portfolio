@@ -1,9 +1,14 @@
 import "@testing-library/jest-dom/vitest";
 
-// jsdom has no IntersectionObserver, give the reveal hook a harmless stub in tests
-type MutableGlobal = { IntersectionObserver: unknown };
+// jsdom is missing a couple of browser apis the components touch, stub them for tests
+type MutableGlobal = {
+  IntersectionObserver: unknown;
+  matchMedia: unknown;
+};
 
-if (typeof (globalThis as MutableGlobal).IntersectionObserver === "undefined") {
+const g = globalThis as MutableGlobal;
+
+if (typeof g.IntersectionObserver === "undefined") {
   class MockIntersectionObserver {
     observe() {}
     unobserve() {}
@@ -12,5 +17,21 @@ if (typeof (globalThis as MutableGlobal).IntersectionObserver === "undefined") {
       return [];
     }
   }
-  (globalThis as MutableGlobal).IntersectionObserver = MockIntersectionObserver;
+  g.IntersectionObserver = MockIntersectionObserver;
+}
+
+if (typeof g.matchMedia === "undefined") {
+  // report reduced motion so animated components render their static state
+  g.matchMedia = (query: string) => ({
+    matches: true,
+    media: query,
+    onchange: null,
+    addListener() {},
+    removeListener() {},
+    addEventListener() {},
+    removeEventListener() {},
+    dispatchEvent() {
+      return false;
+    },
+  });
 }
