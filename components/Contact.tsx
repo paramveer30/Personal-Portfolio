@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 
-import { Kicker } from "@/components/Kicker";
+import { SectionHeading } from "@/components/SectionHeading";
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
 import { site } from "@/content/site";
 
@@ -81,13 +81,12 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="bg-contrast border-border min-h-screen scroll-mt-20 border-t px-6 py-24"
+      className="bg-contrast/90 border-border flex min-h-screen scroll-mt-20 flex-col border-t px-6 py-24 lg:py-28"
     >
-      <div className="mx-auto flex w-full max-w-[760px] flex-col gap-8">
+      <div className="mx-auto flex w-full max-w-[860px] flex-1 flex-col justify-center gap-10">
         <div>
-          <Kicker>Contact</Kicker>
-          <h2 className="text-text mt-2 text-3xl font-bold">Let&apos;s talk</h2>
-          <p className="text-muted mt-3">
+          <SectionHeading label="Contact">Let&apos;s talk</SectionHeading>
+          <p className="text-muted mt-5 text-lg">
             Reach out if you want to work together or just talk shop.
           </p>
         </div>
@@ -96,7 +95,7 @@ export function Contact() {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-5"
         >
           {/* honeypot field, hidden from real visitors with css */}
           <input
@@ -113,21 +112,21 @@ export function Contact() {
               name="name"
               placeholder="Name"
               required
-              className="border-border bg-surface text-text focus:ring-accent rounded-md border px-4 py-3 text-sm focus:ring-2 focus:outline-none"
+              className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
             />
             <input
               name="email"
               type="email"
               placeholder="Email"
               required
-              className="border-border bg-surface text-text focus:ring-accent rounded-md border px-4 py-3 text-sm focus:ring-2 focus:outline-none"
+              className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
             />
           </div>
 
           <input
             name="subject"
             placeholder="Subject"
-            className="border-border bg-surface text-text focus:ring-accent rounded-md border px-4 py-3 text-sm focus:ring-2 focus:outline-none"
+            className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
           />
 
           <textarea
@@ -135,26 +134,28 @@ export function Contact() {
             placeholder="Message"
             required
             rows={5}
-            className="border-border bg-surface text-text focus:ring-accent rounded-md border px-4 py-3 text-sm focus:ring-2 focus:outline-none"
+            className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
           />
 
           <button
             type="submit"
             disabled={status === "loading"}
-            className="bg-accent text-contrast w-fit rounded-md px-6 py-3 text-sm font-medium shadow-[0_0_24px_rgba(216,178,122,0.22)] disabled:opacity-60"
+            className="bg-accent text-contrast w-fit rounded-md px-7 py-4 text-base font-medium shadow-[0_0_24px_rgba(216,178,122,0.22)] disabled:opacity-60"
           >
             {status === "loading" ? "Sending..." : "Send"}
           </button>
 
           {status === "success" && (
-            <p className="text-accent text-sm">
+            <p className="text-accent text-base">
               Thanks, that&apos;s on its way.
             </p>
           )}
-          {status === "error" && <p className="text-accent text-sm">{error}</p>}
+          {status === "error" && (
+            <p className="text-accent text-base">{error}</p>
+          )}
         </form>
 
-        <div className="border-border text-muted flex flex-col gap-3 border-t pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-border text-muted flex flex-col gap-3 border-t pt-8 text-base sm:flex-row sm:items-center sm:justify-between">
           <a
             href={`mailto:${site.contact.email}`}
             className="text-text hover:text-accent"

@@ -29,7 +29,10 @@ const HERO_PHRASES = [
 export default function HomePage() {
   return (
     // scroll target for the name link in the header
-    <main id="top">
+    <main id="top" className="relative isolate [overflow-x:clip]">
+      {/* warm light pools that run the height of the page, gives each section its own glow */}
+      <div className="page-aura" aria-hidden="true" />
+
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-24">
         <TopologyBackground />
 

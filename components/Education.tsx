@@ -1,4 +1,4 @@
-import { Kicker } from "@/components/Kicker";
+import { SectionHeading } from "@/components/SectionHeading";
 import { site } from "@/content/site";
 
 export function Education() {
@@ -6,26 +6,27 @@ export function Education() {
     // same bg-panel as Experience so the two still read as one material
     <section
       id="education"
-      className="bg-panel min-h-screen scroll-mt-20 px-6 py-24"
+      className="bg-panel/85 flex min-h-screen scroll-mt-20 flex-col px-6 py-24 lg:py-28"
     >
-      <div className="mx-auto w-full max-w-[760px]">
-        <Kicker>Education</Kicker>
+      <div className="mx-auto flex w-full max-w-[860px] flex-1 flex-col">
+        <SectionHeading label="Education">Where I studied</SectionHeading>
 
-        <div className="mt-6 flex flex-col gap-8">
+        {/* body fills the leftover height and centres itself so the section never looks empty */}
+        <div className="mt-12 flex flex-1 flex-col justify-center gap-10 sm:mt-16">
           {site.education.map((school) => (
-            <article key={school.school} className="flex flex-col gap-3">
+            <article key={school.school} className="flex flex-col gap-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-text text-xl font-bold">
+                <h3 className="text-text text-2xl font-bold">
                   {school.credential}
                 </h3>
-                <span className="text-muted font-mono text-xs tracking-wider uppercase">
+                <span className="text-muted font-mono text-sm tracking-wider uppercase">
                   {/* start is still "todo", so only show the range once there is a real start date */}
                   {school.start !== "todo" ? `${school.start} to ` : ""}
                   {school.end}
                 </span>
               </div>
 
-              <p className="text-muted font-mono text-xs tracking-wider uppercase">
+              <p className="text-muted font-mono text-sm tracking-wider uppercase">
                 <a
                   href={school.url}
                   target="_blank"
@@ -43,7 +44,7 @@ export function Education() {
                   {school.focus.map((topic) => (
                     <span
                       key={topic}
-                      className="border-border text-muted rounded-md border px-2 py-1 font-mono text-xs"
+                      className="border-border text-muted rounded-md border px-2.5 py-1.5 font-mono text-[13px]"
                     >
                       {topic}
                     </span>
@@ -56,7 +57,7 @@ export function Education() {
                   {school.honors.map((honor) => (
                     <span
                       key={honor}
-                      className="border-accent text-accent rounded-md border px-2 py-1 font-mono text-xs"
+                      className="border-accent text-accent rounded-md border px-2.5 py-1.5 font-mono text-[13px]"
                     >
                       {honor}
                     </span>
