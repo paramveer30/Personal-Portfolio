@@ -18,10 +18,12 @@ const lastName = nameParts[nameParts.length - 1];
 
 // lines the hero cycles through, module const so the ref stays stable
 const HERO_PHRASES = [
-  "Seeking internships for Winter and Fall 2027.",
+  "Seeking internships for Winter 2027.",
   "I like making things and figuring out how they work.",
   "Happy to talk projects, or basketball.",
   "Always building something new.",
+  "Lets Connect!",
+  "Welcome to my website.",
 ];
 
 // temporary, flip to true to bring every section back
@@ -36,16 +38,19 @@ export default function HomePage() {
 
         {/* a faint rounded container, no hard corner ticks, just gentle structure */}
         <div className="border-border bg-surface/30 relative z-10 mx-auto w-full max-w-[1120px] rounded-2xl border p-8 sm:p-12 lg:p-16">
-          <div className="grid gap-10 md:grid-cols-[1.25fr_0.85fr] md:items-center">
-            {/* left, name and details */}
-            <div className="order-1">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)] md:items-center">
+            {/* left, name and details. min-w-0 so the big name cannot shove the photo column to zero width */}
+            <div className="order-1 min-w-0">
               {/* aria-label keeps the name one phrase for screen readers despite the two faces */}
-              <h1 aria-label={site.name} className="leading-none font-bold">
-                <span className="block text-6xl sm:text-7xl lg:text-[6rem]">
+              <h1
+                aria-label={site.name}
+                className="leading-none font-bold break-words"
+              >
+                <span className="block text-6xl sm:text-7xl lg:text-[5rem]">
                   {firstNames}
                 </span>
                 {/* cursive face, pulled up because script fonts carry a lot of empty space on top */}
-                <span className="text-accent font-script -mt-2 block text-7xl leading-[0.9] font-semibold sm:text-8xl lg:text-[9rem]">
+                <span className="text-accent font-script -mt-2 block text-7xl leading-[0.9] font-semibold sm:text-8xl lg:text-[7.5rem]">
                   {lastName}
                 </span>
               </h1>
@@ -98,8 +103,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* right, the photo */}
-            <div className="order-2 md:justify-self-end">
+            {/* right, the photo. flex not justify-self so the column keeps its track width and the photo does not collapse */}
+            <div className="order-2 flex justify-center md:justify-end">
               <Portrait />
             </div>
           </div>

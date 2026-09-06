@@ -41,15 +41,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     // attaches both font css variables to the whole page, globals.css reads them from here
+    // suppressHydrationWarning because the theme script sets data-theme on html before react hydrates
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${dancingScript.variable}`}
     >
-      {/* runs before paint, only forces a theme when the visitor has an explicit saved choice */}
-      <Script id="theme-init" strategy="beforeInteractive">
-        {`try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`}
-      </Script>
-      <body>
+      <head>
+        {/* runs before paint, only forces a theme when the visitor has an explicit saved choice */}
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`}
+        </Script>
+      </head>
+      <body suppressHydrationWarning>
         <Nav />
         {/* children is whatever page.tsx is being rendered, nav and footer wrap around it automatically */}
         {children}
