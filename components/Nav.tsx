@@ -39,7 +39,7 @@ export function Nav() {
           <div className="hidden items-center gap-2 sm:flex">
             {/* box-shadow is a soft red glow, same treatment as the hero */}
             <span
-              className="bg-accent h-1.5 w-1.5 rounded-full shadow-[0_0_5px_0_var(--color-accent)]"
+              className="bg-accent h-1.5 w-1.5 rounded-full shadow-[0_0_5px_0_var(--accent)]"
               aria-hidden="true"
             />
             {site.availability}

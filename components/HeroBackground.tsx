@@ -19,7 +19,7 @@ export function HeroBackground() {
           cx="100"
           cy="100"
           r="96"
-          stroke="var(--color-accent)"
+          stroke="var(--accent)"
           strokeWidth="0.5"
           opacity="0.12"
         />
@@ -27,7 +27,7 @@ export function HeroBackground() {
           cx="100"
           cy="100"
           r="68"
-          stroke="var(--color-accent)"
+          stroke="var(--accent)"
           strokeWidth="0.4"
           strokeDasharray="2 7"
           opacity="0.1"

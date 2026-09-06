@@ -1,20 +1,31 @@
 @import "tailwindcss";
 
-/* these become tailwind utilities automatically, --color-bg gives you bg-bg, text-bg, border-bg and so on */
-@theme {
-  --color-bg: #40101a;
-  --color-surface: #4b1621;
-  --color-panel: #360d15;
-  --color-contrast: #240810;
-  --color-text: #f2ece9;
-  --color-muted: #c9a9af;
-  --color-border: rgb(255 255 255 / 12%);
-  --color-accent: #d8b27a;
-  --color-accent-deep: #b98f56;
+/* edit these to retheme the whole site, plain css variables so they hot-reload live */
+:root {
+  --bg: #40101a;
+  --surface: #4b1621;
+  --panel: #360d15;
+  --contrast: #240810;
+  --text: #f2ece9;
+  --muted: #c9a9af;
+  --border: rgb(255 255 255 / 12%);
+  --accent: #d8b27a;
+  --accent-deep: #b98f56;
 }
 
-/* inline because the font values come from the css variables next/font sets on the html tag, not a fixed value here */
+/* inline so the utilities point straight at the vars above, changes above show up without a rebuild */
 @theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-panel: var(--panel);
+  --color-contrast: var(--contrast);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+
+  /* font values come from the css variables next/font sets on the html tag */
   --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
@@ -29,8 +40,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans);
   /* makes clicking a nav anchor glide to the section instead of jumping instantly */
   scroll-behavior: smooth;
@@ -112,7 +123,7 @@ body::after {
   }
 }
 .portrait-scan {
-  box-shadow: 0 0 12px 1px var(--color-accent);
+  box-shadow: 0 0 12px 1px var(--accent);
   animation: portraitScan 3.4s ease-in-out infinite;
 }
 @keyframes portraitScan {
