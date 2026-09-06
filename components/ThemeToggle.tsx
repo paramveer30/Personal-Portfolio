@@ -35,7 +35,15 @@ export function ThemeToggle() {
 
   function toggle() {
     const next: Mode = mode === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
+    const root = document.documentElement;
+
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!still) {
+      root.classList.add("theme-transition");
+      window.setTimeout(() => root.classList.remove("theme-transition"), 450);
+    }
+
+    root.setAttribute("data-theme", next);
     try {
       localStorage.setItem("theme", next);
     } catch {

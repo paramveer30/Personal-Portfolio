@@ -102,6 +102,18 @@ body::after {
   }
 }
 
+/* eases the colour swap while the theme toggle flips, added and pulled off by ThemeToggle */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease,
+    fill 0.4s ease;
+}
+
 /* blinking caret for the typing line */
 .caret {
   animation: caret 1s step-end infinite;

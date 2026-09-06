@@ -25,19 +25,30 @@ export function TopologyBackground() {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const readAccent = () =>
-      getComputedStyle(document.documentElement)
-        .getPropertyValue("--accent")
-        .trim() || "#d8b27a";
-    // re-read on theme toggle so the network recolours without a reload
-    let accent = readAccent();
-    const themeObserver = new MutationObserver(() => {
-      accent = readAccent();
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const isLight = () => {
+      const picked = document.documentElement.getAttribute("data-theme");
+      if (picked === "light" || picked === "dark") return picked === "light";
+      return !darkQuery.matches;
+    };
+
+    // on cream the accent washes out, so light mode uses the deeper tone and heavier alpha
+    const readPaint = () => {
+      const cs = getComputedStyle(document.documentElement);
+      const light = isLight();
+      return {
+        color:
+          (light
+            ? cs.getPropertyValue("--accent-deep")
+            : cs.getPropertyValue("--accent")
+          ).trim() || "#d8b27a",
+        line: light ? 0.3 : 0.12,
+        cursor: light ? 0.34 : 0.18,
+        dot: light ? 0.55 : 0.3,
+      };
+    };
+    let paint = readPaint();
 
     let width = 0;
     let height = 0;
@@ -100,8 +111,8 @@ export function TopologyBackground() {
           if (!b) continue;
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < MAX_DIST) {
-            ctx.strokeStyle = accent;
-            ctx.globalAlpha = (1 - d / MAX_DIST) * 0.12;
+            ctx.strokeStyle = paint.color;
+            ctx.globalAlpha = (1 - d / MAX_DIST) * paint.line;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -112,16 +123,16 @@ export function TopologyBackground() {
 
         const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
         if (dm < MOUSE_DIST) {
-          ctx.strokeStyle = accent;
-          ctx.globalAlpha = (1 - dm / MOUSE_DIST) * 0.18;
+          ctx.strokeStyle = paint.color;
+          ctx.globalAlpha = (1 - dm / MOUSE_DIST) * paint.cursor;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
         }
 
-        ctx.globalAlpha = 0.3;
-        ctx.fillStyle = accent;
+        ctx.globalAlpha = paint.dot;
+        ctx.fillStyle = paint.color;
         ctx.beginPath();
         ctx.arc(a.x, a.y, 1.1, 0, Math.PI * 2);
         ctx.fill();
@@ -146,6 +157,18 @@ export function TopologyBackground() {
       mouse.y = -9999;
     };
 
+    // recolour on theme toggle, and repaint straight away when the loop is not running
+    const onThemeChange = () => {
+      paint = readPaint();
+      if (reduced) render();
+    };
+    const themeObserver = new MutationObserver(onThemeChange);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    darkQuery.addEventListener("change", onThemeChange);
+
     resize();
     render();
     if (!reduced) raf = requestAnimationFrame(loop);
@@ -157,6 +180,7 @@ export function TopologyBackground() {
     return () => {
       cancelAnimationFrame(raf);
       themeObserver.disconnect();
+      darkQuery.removeEventListener("change", onThemeChange);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
