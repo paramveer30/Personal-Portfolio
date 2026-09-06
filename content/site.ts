@@ -36,6 +36,10 @@ export interface ProjectItem {
   category: string;
   description: string;
   tech: string[];
+  // longer write up shown when the card is expanded
+  detail?: string[];
+  // screenshot, todo until param sends one
+  imageUrl?: string;
   demoUrl?: string;
   sourceUrl?: string;
 }
@@ -195,34 +199,45 @@ export const site: SiteContent = {
     },
   ],
 
+  // draft descriptions and detail, Param to confirm names and rewrite the copy
   projects: [
     {
-      title: "Catan Coach AI",
-      category: "AI / Tooling",
-      description:
-        "A headless Catan engine that reverse engineers colonist.io's undocumented websocket protocol, then uses expectimax and MCTS search to power a live coaching overlay and post game review.",
-      tech: [
-        "Python",
-        "NumPy",
-        "FastAPI",
-        "TypeScript",
-        "Next.js",
-        "WebSockets",
-      ],
+      title: "Tamalide",
+      category: "Web / Team Project",
+      description: "todo, one line",
+      tech: [],
+      sourceUrl: "https://github.com/paramveer30",
+    },
+    {
+      title: "LetMeKnock",
+      category: "Open Source / Contribution",
+      description: "todo, one line",
+      tech: [],
+      sourceUrl: "https://github.com/paramveer30",
     },
     {
       title: "Spatial Mapping Using Time-of-Flight Sensor",
       category: "Embedded Systems",
       description:
         "An embedded 360 degree spatial mapping system built with a VL53L1X time of flight sensor and a stepper motor, reconstructing 3D models of indoor spaces from I2C and UART data.",
+      detail: [
+        "A stepper motor sweeps the VL53L1X time of flight sensor through a full rotation while an MSP432 reads distance samples over I2C and streams them out over UART.",
+        "A host side script turns the polar sweeps into a point cloud and stitches successive rotations into a rough 3D model of the room.",
+      ],
       tech: ["C++", "I2C", "UART", "VL53L1X"],
+      sourceUrl: "https://github.com/paramveer30",
     },
     {
       title: "Automated Baggage Handling System",
       category: "Robotics / Team Project",
       description:
         "A luggage routing system built with a Q-Arm, servo table, and barcode scanner, with Python control algorithms reaching 88 percent seat detection accuracy.",
+      detail: [
+        "A Q-Arm picks bags off a servo driven table, a barcode scanner reads the routing tag, and the arm places each bag in the bin for its flight.",
+        "The Python control loop handles the pick and place geometry and the sorting logic, hitting 88 percent seat detection accuracy across test runs.",
+      ],
       tech: ["Python", "Q-Arm"],
+      sourceUrl: "https://github.com/paramveer30",
     },
   ],
 
