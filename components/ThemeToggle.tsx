@@ -4,21 +4,29 @@ import { useSyncExternalStore } from "react";
 
 type Mode = "light" | "dark";
 
-// the theme lives on <html data-theme>, set by the inline script in layout.tsx.
-// this just watches that attribute and lets the button flip it.
+// the theme lives on <html data-theme> when the visitor has picked one, otherwise
+// the os preference decides. this watches both and lets the button flip it.
+const systemDark = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
 function subscribe(onChange: () => void) {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["data-theme"],
   });
-  return () => observer.disconnect();
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+  media.addEventListener("change", onChange);
+  return () => {
+    observer.disconnect();
+    media.removeEventListener("change", onChange);
+  };
 }
 
 function readMode(): Mode {
-  return document.documentElement.getAttribute("data-theme") === "dark"
-    ? "dark"
-    : "light";
+  const picked = document.documentElement.getAttribute("data-theme");
+  if (picked === "dark" || picked === "light") return picked;
+  return systemDark() ? "dark" : "light";
 }
 
 export function ThemeToggle() {
