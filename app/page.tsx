@@ -2,18 +2,27 @@ import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Education } from "@/components/Education";
 import { Experience } from "@/components/Experience";
-import { HeroBackground } from "@/components/HeroBackground";
 import { Journey } from "@/components/Journey";
 import { Portrait } from "@/components/Portrait";
 import { Projects } from "@/components/Projects";
 import { Reveal } from "@/components/Reveal";
 import { Skills } from "@/components/Skills";
+import { TopologyBackground } from "@/components/TopologyBackground";
+import { TypeCycle } from "@/components/TypeCycle";
 import { site } from "@/content/site";
 
 // last word of the name gets the accent color
 const nameParts = site.name.split(" ");
 const firstNames = nameParts.slice(0, -1).join(" ");
 const lastName = nameParts[nameParts.length - 1];
+
+// lines the hero cycles through, module const so the ref stays stable
+const HERO_PHRASES = [
+  "Seeking internships for Winter and Fall 2027.",
+  "I like making things and figuring out how they work.",
+  "Happy to talk projects, or basketball.",
+  "Always building something new.",
+];
 
 // temporary, flip to true to bring every section back
 const SHOW_SECTIONS = false;
@@ -22,46 +31,94 @@ export default function HomePage() {
   return (
     // scroll target for the name link in the header
     <main id="top">
-      <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-        <HeroBackground />
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-24">
+        <TopologyBackground />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-[1120px] items-center gap-12 md:grid-cols-[0.85fr_1.15fr]">
-          {/* photo on the left on desktop, below the name on mobile */}
-          <div className="order-2 md:order-1">
-            <Portrait />
-          </div>
+        {/* a faint rounded container, no hard corner ticks, just gentle structure */}
+        <div className="border-border bg-surface/30 relative z-10 mx-auto w-full max-w-[1120px] rounded-2xl border p-8 sm:p-12 lg:p-16">
+          <div className="grid gap-10 md:grid-cols-[1.25fr_0.85fr] md:items-center">
+            {/* left, name and details */}
+            <div className="order-1">
+              {/* aria-label keeps the name one phrase for screen readers despite the two faces */}
+              <h1 aria-label={site.name} className="leading-none font-bold">
+                <span className="block text-6xl sm:text-7xl lg:text-[6rem]">
+                  {firstNames}
+                </span>
+                {/* cursive face, pulled up because script fonts carry a lot of empty space on top */}
+                <span className="text-accent font-script -mt-2 block text-7xl leading-[0.9] font-semibold sm:text-8xl lg:text-[9rem]">
+                  {lastName}
+                </span>
+              </h1>
 
-          {/* name and short bio, sits in the right half on desktop */}
-          <div className="order-1 md:order-2">
-            <p className="text-accent font-mono text-xs tracking-[0.16em] uppercase">
-              {site.role} &middot; McMaster University
-            </p>
+              <p className="text-muted mt-6 text-sm sm:text-base">
+                Computer Engineering <span className="text-accent">@</span>{" "}
+                McMaster University
+              </p>
 
-            {/* aria-label keeps the name one phrase for screen readers despite the two faces */}
-            <h1 aria-label={site.name} className="mt-4 leading-none font-bold">
-              <span className="block text-6xl sm:text-7xl lg:text-8xl">
-                {firstNames}
-              </span>
-              {/* cursive face, pulled up because script fonts carry a lot of empty space on top */}
-              <span className="text-accent font-script -mt-2 block text-7xl leading-[0.9] font-semibold sm:text-8xl lg:text-[8.5rem]">
-                {lastName}
-              </span>
-            </h1>
+              {/* the cycling line, boxed in a small pill so it reads as its own thing */}
+              <div className="border-border bg-surface/50 text-muted mt-5 inline-flex w-[min(90vw,24rem)] items-center overflow-hidden rounded-full border px-4 py-1.5 text-xs whitespace-nowrap sm:text-sm">
+                <TypeCycle phrases={HERO_PHRASES} />
+              </div>
 
-            <p className="text-muted mt-6 max-w-[420px] text-lg leading-relaxed">
-              {site.bioShort}
-            </p>
+              <div className="mt-8">
+                <a
+                  href="#contact"
+                  className="bg-accent text-contrast hover:bg-accent-deep inline-flex items-center gap-2 rounded-lg px-7 py-4 text-base font-medium shadow-[0_10px_30px_-12px_var(--accent)]"
+                >
+                  Get in touch &rarr;
+                </a>
+              </div>
 
-            <div className="mt-8">
-              <a
-                href="#contact"
-                // the box-shadow is the red glow, an arbitrary value since it is a one off
-                className="bg-accent text-contrast inline-flex items-center gap-2 rounded-lg px-6 py-3.5 text-sm font-medium shadow-[0_0_24px_rgba(216,178,122,0.22)]"
-              >
-                Get in touch &rarr;
-              </a>
+              {/* meta row fills the space with real info, normal case so it stays friendly */}
+              <div className="text-muted mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+                <span className="inline-flex items-center gap-2">
+                  <span
+                    className="bg-accent h-1.5 w-1.5 rounded-full"
+                    aria-hidden="true"
+                  />
+                  {site.availability}
+                </span>
+                <span>{site.location}</span>
+                <a
+                  href={site.contact.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent"
+                >
+                  GitHub
+                </a>
+                <a
+                  href={site.contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+
+            {/* right, the photo */}
+            <div className="order-2 md:justify-self-end">
+              <Portrait />
             </div>
           </div>
+        </div>
+
+        {/* scroll cue */}
+        <div className="scroll-cue text-muted absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5">
+          <span className="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
         </div>
       </section>
 

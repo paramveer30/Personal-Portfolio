@@ -138,17 +138,19 @@ body::after {
   }
 }
 
-/* portrait frame, a small slow bob */
-.portrait-float {
-  animation: portraitFloat 7s ease-in-out infinite;
+/* scroll cue at the bottom of the hero, a gentle bob */
+.scroll-cue {
+  animation: scrollBob 2.4s ease-in-out infinite;
 }
-@keyframes portraitFloat {
+@keyframes scrollBob {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
+    opacity: 0.7;
   }
   50% {
-    transform: translateY(-8px);
+    transform: translate(-50%, 4px);
+    opacity: 1;
   }
 }
 
