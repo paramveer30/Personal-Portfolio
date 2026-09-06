@@ -33,7 +33,7 @@ export function TopologyBackground() {
       return !darkQuery.matches;
     };
 
-    // on cream the accent washes out, so light mode uses the deeper tone and heavier alpha
+    // on cream the accent washes out, so light mode uses the deeper tone, heavier alpha and thicker strokes
     const readPaint = () => {
       const cs = getComputedStyle(document.documentElement);
       const light = isLight();
@@ -43,9 +43,11 @@ export function TopologyBackground() {
             ? cs.getPropertyValue("--accent-deep")
             : cs.getPropertyValue("--accent")
           ).trim() || "#d8b27a",
-        line: light ? 0.3 : 0.12,
-        cursor: light ? 0.34 : 0.18,
-        dot: light ? 0.55 : 0.3,
+        line: light ? 0.55 : 0.12,
+        cursor: light ? 0.6 : 0.18,
+        dot: light ? 0.9 : 0.3,
+        width: light ? 1.4 : 1,
+        dotR: light ? 1.7 : 1.1,
       };
     };
     let paint = readPaint();
@@ -113,7 +115,7 @@ export function TopologyBackground() {
           if (d < MAX_DIST) {
             ctx.strokeStyle = paint.color;
             ctx.globalAlpha = (1 - d / MAX_DIST) * paint.line;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = paint.width;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -134,7 +136,7 @@ export function TopologyBackground() {
         ctx.globalAlpha = paint.dot;
         ctx.fillStyle = paint.color;
         ctx.beginPath();
-        ctx.arc(a.x, a.y, 1.1, 0, Math.PI * 2);
+        ctx.arc(a.x, a.y, paint.dotR, 0, Math.PI * 2);
         ctx.fill();
       }
 
