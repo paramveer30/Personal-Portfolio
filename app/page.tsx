@@ -22,7 +22,7 @@ export default function HomePage() {
       <section className="relative flex min-h-screen items-center overflow-hidden px-6">
         <HeroBackground />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-[1120px] items-center gap-12 md:grid-cols-2">
+        <div className="relative z-10 mx-auto grid w-full max-w-[1120px] items-center gap-12 md:grid-cols-[0.85fr_1.15fr]">
           {/* photo on the left on desktop, below the name on mobile */}
           <div className="order-2 md:order-1">
             <Portrait />
@@ -34,14 +34,15 @@ export default function HomePage() {
               {site.role} &middot; McMaster University
             </p>
 
-            {/* aria-label keeps the name one phrase for screen readers despite the line break */}
-            <h1
-              aria-label={site.name}
-              className="mt-3 text-6xl leading-[1.03] font-bold sm:text-7xl lg:text-8xl"
-            >
-              {firstNames}
-              <br />
-              <span className="text-accent">{lastName}</span>
+            {/* aria-label keeps the name one phrase for screen readers despite the two faces */}
+            <h1 aria-label={site.name} className="mt-4 leading-none font-bold">
+              <span className="block text-6xl sm:text-7xl lg:text-8xl">
+                {firstNames}
+              </span>
+              {/* cursive face, pulled up because script fonts carry a lot of empty space on top */}
+              <span className="text-accent font-script -mt-2 block text-7xl leading-[0.9] font-semibold sm:text-8xl lg:text-[8.5rem]">
+                {lastName}
+              </span>
             </h1>
 
             <p className="text-muted mt-6 max-w-[420px] text-lg leading-relaxed">

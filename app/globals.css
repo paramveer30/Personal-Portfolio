@@ -2,7 +2,7 @@
 
 /* edit these to retheme the whole site, plain css variables so they hot-reload live */
 :root {
-  --bg: #40101a;
+  --bg: #14000c;
   --surface: #4b1621;
   --panel: #360d15;
   --contrast: #240810;
@@ -28,6 +28,7 @@
   /* font values come from the css variables next/font sets on the html tag */
   --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-script: var(--font-dancing-script), cursive;
 }
 
 *,
@@ -47,7 +48,7 @@ body {
   scroll-behavior: smooth;
 }
 
-/* faint light dot pattern over the dark red ground */
+/* faint light dot pattern over the dark ground */
 body::after {
   content: "";
   position: fixed;
