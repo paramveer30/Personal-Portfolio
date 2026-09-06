@@ -318,6 +318,6 @@ export const site: SiteContent = {
   },
 
   resumeUrl: "/resume.pdf",
-  portraitUrl: "",
+  portraitUrl: "/portrait.jpg",
   references: [],
 };
