@@ -47,8 +47,6 @@ export interface ProjectItem {
 export interface SkillGroup {
   category: string;
   items: string[];
-  // rough self rating, 1 to 10, todo until param sets a real number
-  level: number;
 }
 
 export interface PassionItem {
@@ -253,7 +251,6 @@ export const site: SiteContent = {
         "R",
         "LaTeX",
       ],
-      level: 7,
     },
     {
       category: "Frameworks & Tools",
@@ -272,7 +269,6 @@ export const site: SiteContent = {
         "VS Code",
         "AutoCAD",
       ],
-      level: 7,
     },
     {
       category: "Hardware",
@@ -287,7 +283,6 @@ export const site: SiteContent = {
         "Digilent Analog Discovery",
         "3D Printing (Prusa)",
       ],
-      level: 7,
     },
   ],
 

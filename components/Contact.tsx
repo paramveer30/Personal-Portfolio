@@ -81,7 +81,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="bg-contrast/90 border-border flex min-h-screen scroll-mt-20 flex-col border-t px-6 py-24 lg:py-28"
+      className="bg-surface/70 border-border flex min-h-screen scroll-mt-20 flex-col border-t px-6 py-24 lg:py-28"
     >
       <div className="mx-auto flex w-full max-w-[860px] flex-1 flex-col justify-center gap-10">
         <div>

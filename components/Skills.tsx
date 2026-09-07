@@ -14,22 +14,13 @@ export function Skills() {
         <div className="mt-12 grid flex-1 content-center gap-10 sm:mt-16 sm:grid-cols-3">
           {site.skills.map((group) => (
             <div key={group.category} className="flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-muted font-mono text-sm tracking-wider uppercase">
-                  {group.category}
-                </h3>
-                <span className="text-accent font-mono text-sm">
-                  {group.level}/10
-                </span>
-              </div>
-
-              {/* proficiency bar, width is a real number so it has to be an inline style */}
-              <div className="bg-panel h-1.5 w-full rounded-full">
-                <div
-                  className="bg-accent h-1.5 rounded-full"
-                  style={{ width: `${group.level * 10}%` }}
+              <h3 className="text-accent flex items-center gap-3 font-mono text-sm tracking-wider uppercase">
+                <span
+                  aria-hidden="true"
+                  className="bg-accent h-px w-6 shrink-0"
                 />
-              </div>
+                {group.category}
+              </h3>
 
               <ul className="flex flex-wrap gap-2.5">
                 {group.items.map((item) => (
