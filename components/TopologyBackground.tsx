@@ -171,16 +171,34 @@ export function TopologyBackground() {
     });
     darkQuery.addEventListener("change", onThemeChange);
 
+    // linking every node to every other one is quadratic, and it was running on every
+    // frame for the whole page even once the hero had scrolled away. only animate on screen
+    const start = () => {
+      if (reduced || raf) return;
+      raf = requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    const visibility = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) start();
+      else stop();
+    });
+    visibility.observe(canvas);
+
     resize();
     render();
-    if (!reduced) raf = requestAnimationFrame(loop);
+    start();
 
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerleave", onLeave);
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
+      visibility.disconnect();
       themeObserver.disconnect();
       darkQuery.removeEventListener("change", onThemeChange);
       window.removeEventListener("resize", resize);

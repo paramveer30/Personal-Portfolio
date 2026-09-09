@@ -7,8 +7,9 @@
   --panel: #ece3d2;
   --contrast: #2a2420;
   --text: #2c2622;
-  --muted: #7c7267;
-  --border: rgb(44 38 34 / 12%);
+  /* was #7c7267, which only made 3.7:1 on the panel and failed AA. this clears 4.5:1 everywhere */
+  --muted: #5d554b;
+  --border: rgb(44 38 34 / 14%);
   --accent: #b47b34;
   --accent-deep: #935f27;
 }
@@ -21,7 +22,7 @@
     --panel: #221d19;
     --contrast: #14100d;
     --text: #f3ece1;
-    --muted: #a89c8d;
+    --muted: #b3a696;
     --border: rgb(243 236 225 / 12%);
     --accent: #d8b27a;
     --accent-deep: #b98f56;
@@ -35,7 +36,7 @@
   --panel: #221d19;
   --contrast: #14100d;
   --text: #f3ece1;
-  --muted: #a89c8d;
+  --muted: #b3a696;
   --border: rgb(243 236 225 / 12%);
   --accent: #d8b27a;
   --accent-deep: #b98f56;
@@ -76,17 +77,8 @@ body {
   scroll-behavior: smooth;
 }
 
-/* full height sections that click to their top edge as you scroll near them */
-/* proximity not mandatory so a section taller than the screen never traps the scroll */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-snap-type: y proximity;
-  }
-  main > section,
-  main > div > section {
-    scroll-snap-align: start;
-  }
-}
+/* scroll snapping was removed on purpose. with full height sections it fought the
+   wheel on every section boundary, which read as the scroll sticking rather than gliding */
 
 /* faint dot texture, mid grey so it reads on both the cream and the dark grounds */
 body::after {
@@ -150,6 +142,59 @@ body::after {
   }
 }
 
+/* warm pool behind the about panels, drifts so the section has depth instead of a flat card */
+.about-glow {
+  background:
+    radial-gradient(
+      34rem 26rem at 16% 24%,
+      color-mix(in srgb, var(--accent) 28%, transparent),
+      transparent 66%
+    ),
+    radial-gradient(
+      28rem 26rem at 84% 74%,
+      color-mix(in srgb, var(--accent) 18%, transparent),
+      transparent 66%
+    );
+  animation: aboutGlow 18s ease-in-out infinite alternate;
+}
+@keyframes aboutGlow {
+  from {
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    opacity: 0.95;
+    transform: translate3d(2%, -1.5%, 0) scale(1.08);
+  }
+}
+
+/* the small availability dot, a slow breathing halo rather than a hard blink */
+.live-dot {
+  animation: liveDot 2.6s ease-in-out infinite;
+}
+@keyframes liveDot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+
+/* slow drift on the photo in an open journey panel, so a still image is not dead still */
+.ken-burns {
+  animation: kenBurns 16s ease-in-out infinite alternate;
+}
+@keyframes kenBurns {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(-1.5%, -1%, 0);
+  }
+}
+
 /* gentle idle bob for the passion icons in the journey section */
 .idle-float {
   animation: idleFloat 4.5s ease-in-out infinite;
@@ -161,21 +206,6 @@ body::after {
   }
   50% {
     transform: translateY(-6px);
-  }
-}
-
-/* equaliser bars for the now spinning tile */
-.eq-bar {
-  transform-origin: bottom;
-  animation: eqBar 800ms ease-in-out infinite;
-}
-@keyframes eqBar {
-  0%,
-  100% {
-    transform: scaleY(0.25);
-  }
-  50% {
-    transform: scaleY(1);
   }
 }
 

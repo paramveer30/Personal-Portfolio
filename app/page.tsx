@@ -7,6 +7,13 @@ import { Portrait } from "@/components/Portrait";
 import { Projects } from "@/components/Projects";
 import { Reveal } from "@/components/Reveal";
 import { Skills } from "@/components/Skills";
+import {
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  MailIcon,
+  XIcon,
+} from "@/components/SocialIcons";
 import { TopologyBackground } from "@/components/TopologyBackground";
 import { TypeCycle } from "@/components/TypeCycle";
 import { site } from "@/content/site";
@@ -26,6 +33,40 @@ const HERO_PHRASES = [
   "Welcome to my website.",
 ];
 
+// the hero contact marks. entries with an empty url drop out rather than render a dead link
+const HERO_LINKS = [
+  {
+    label: "GitHub",
+    href: site.contact.github,
+    icon: <GithubIcon size={20} />,
+    external: true,
+  },
+  {
+    label: "LinkedIn",
+    href: site.contact.linkedin,
+    icon: <LinkedinIcon size={20} />,
+    external: true,
+  },
+  {
+    label: "X",
+    href: site.contact.x,
+    icon: <XIcon size={20} />,
+    external: true,
+  },
+  {
+    label: "Instagram",
+    href: site.contact.instagram,
+    icon: <InstagramIcon size={20} />,
+    external: true,
+  },
+  {
+    label: "Email",
+    href: `mailto:${site.contact.email}`,
+    icon: <MailIcon size={20} />,
+    external: false,
+  },
+].filter((link) => link.href && !link.href.endsWith("mailto:"));
+
 export default function HomePage() {
   return (
     // scroll target for the name link in the header
@@ -37,7 +78,7 @@ export default function HomePage() {
         <TopologyBackground />
 
         {/* a faint rounded container, no hard corner ticks, just gentle structure */}
-        <div className="border-border bg-surface/30 relative z-10 mx-auto w-full max-w-[1120px] rounded-2xl border p-8 sm:p-12 lg:p-16">
+        <div className="border-border bg-surface/30 relative z-10 mx-auto w-full max-w-[1120px] rounded-2xl border p-8 shadow-[0_0_140px_-70px_var(--accent)] sm:p-12 lg:p-16">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)] md:items-center">
             {/* left, name and details. min-w-0 so the big name cannot shove the photo column to zero width */}
             <div className="order-1 min-w-0">
@@ -84,22 +125,23 @@ export default function HomePage() {
                   {site.availability}
                 </span>
                 <span>{site.location}</span>
-                <a
-                  href={site.contact.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-accent"
-                >
-                  GitHub
-                </a>
-                <a
-                  href={site.contact.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-accent"
-                >
-                  LinkedIn
-                </a>
+              </div>
+
+              {/* the ways to reach him, as marks rather than a row of words */}
+              <div className="mt-5 flex flex-wrap items-center gap-2.5">
+                {HERO_LINKS.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    {...(link.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    aria-label={link.label}
+                    className="border-border bg-surface/50 text-muted hover:border-accent/50 hover:text-accent hover:bg-accent/[0.07] flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-200 hover:-translate-y-0.5"
+                  >
+                    {link.icon}
+                  </a>
+                ))}
               </div>
             </div>
 
@@ -127,11 +169,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* each section fades and rises in the first time it scrolls into view */}
-      <Reveal>
-        <About />
-      </Reveal>
-      {/* journey handles its own reveal so the cards can stagger in */}
+      {/* about and journey handle their own reveal so their panels can stagger in */}
+      <About />
       <Journey />
       <Reveal>
         <Experience />

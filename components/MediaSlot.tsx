@@ -5,18 +5,10 @@ interface MediaSlotProps {
   alt: string;
   label: string;
   className?: string;
-  // extra classes for the image itself, e.g. filters
-  imgClassName?: string;
 }
 
 // reserves the space for an image, shows a dashed placeholder until a real src is set
-export function MediaSlot({
-  src,
-  alt,
-  label,
-  className = "",
-  imgClassName = "",
-}: MediaSlotProps) {
+export function MediaSlot({ src, alt, label, className = "" }: MediaSlotProps) {
   if (!src) {
     return (
       <div
@@ -37,7 +29,7 @@ export function MediaSlot({
         alt={alt}
         fill
         unoptimized
-        className={`object-cover object-top ${imgClassName}`}
+        className="object-cover object-top"
         sizes="(max-width: 768px) 90vw, 340px"
       />
     </div>

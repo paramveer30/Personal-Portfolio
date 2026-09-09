@@ -1,11 +1,6 @@
 // single source of truth for every piece of copy on the site
 // fields still marked "todo" need real answers from param before launch
 
-export interface StatItem {
-  label: string;
-  value: string;
-}
-
 export interface ExperienceItem {
   title: string;
   company: string;
@@ -13,10 +8,13 @@ export interface ExperienceItem {
   type: string;
   start: string;
   end: string;
+  // one line that frames the role, sits above the bullets
+  summary: string;
   bullets: string[];
   skills: string[];
-  // company logo, todo until param sends one
+  // company mark, falls back to the drawn icon then a monogram tile when unset
   logoUrl?: string;
+  icon?: string;
 }
 
 export interface EducationItem {
@@ -29,6 +27,10 @@ export interface EducationItem {
   average?: string;
   focus: string[];
   honors: string[];
+  // clubs and teams, kept apart from honors so they can style differently
+  activities?: string[];
+  // school crest, falls back to a monogram tile when unset
+  logoUrl?: string;
 }
 
 export interface ProjectItem {
@@ -56,29 +58,24 @@ export interface PassionItem {
   images: string[];
 }
 
-export interface FavoriteMovie {
-  title: string;
-  posterUrl?: string;
-}
-
 // small personality section, not from the resume, param gave these directly
-export interface Favorites {
-  rapper: string;
-  movies: FavoriteMovie[];
-  song: string;
-  songArtist: string;
-  // spotify link, todo until param sends one
-  songUrl?: string;
-  // album art, todo until param sends one
-  albumArtUrl?: string;
-  ufcFighter: string;
+// every entry renders in the same square tile, so add one by adding a 360x360 image
+export interface FavoriteItem {
+  // the category shown above the name, e.g. Artist, Movie, Team
+  label: string;
+  title: string;
+  // optional second line, used for the artist behind a song
+  meta?: string;
+  imageUrl: string;
 }
 
 export interface ContactInfo {
   email: string;
   linkedin: string;
   github: string;
+  // empty hides the icon rather than rendering a dead link
   instagram: string;
+  x: string;
   // web3forms public key, left empty falls back to a mailto link
   formAccessKey: string;
 }
@@ -87,7 +84,6 @@ export interface SiteContent {
   name: string;
   role: string;
   tagline: string;
-  bioShort: string;
   bio: string[];
   location: string;
   availability: string;
@@ -95,19 +91,19 @@ export interface SiteContent {
     approach: string;
     whatIDo: string;
   };
-  stats: StatItem[];
   experience: ExperienceItem[];
   education: EducationItem[];
   projects: ProjectItem[];
   skills: SkillGroup[];
   skillHighlights: string[];
   passions: PassionItem[];
-  favorites: Favorites;
+  favorites: FavoriteItem[];
   contact: ContactInfo;
   resumeUrl: string;
   // hero photo, empty shows a placeholder frame
   portraitUrl: string;
-  references: string[];
+  // second photo, sits beside the about copy. empty shows a placeholder frame
+  aboutImageUrl: string;
 }
 
 export const site: SiteContent = {
@@ -115,8 +111,6 @@ export const site: SiteContent = {
   role: "Computer Engineering Co-op Student",
   tagline:
     "I take systems apart to understand them, then build something better with what I learn.",
-  bioShort:
-    "Computer Engineering co-op student at McMaster University, working across software, embedded systems, and hardware diagnostics.",
   bio: [
     "I'm a Computer Engineering co-op student at McMaster University. I've done instrument diagnostics and calibration tooling at Hoskin Scientific, and I keep a part time technical role at BS Transportation running alongside school.",
     "Outside of coursework I build my own projects, usually something that involves pulling a system apart to see how it actually works. Recent ones include reverse engineering a board game's network protocol and building a 3D spatial mapping rig from a time of flight sensor.",
@@ -131,12 +125,6 @@ export const site: SiteContent = {
       "Right now that's a mix of coursework, a couple of personal engineering projects, and part time technical work.",
   },
 
-  stats: [
-    { label: "Projects shipped", value: "3" },
-    { label: "Years experience", value: "5+" },
-    { label: "Technologies", value: "20+" },
-  ],
-
   experience: [
     {
       title: "Instrument Technician Intern",
@@ -145,6 +133,9 @@ export const site: SiteContent = {
       type: "internship",
       start: "May 2026",
       end: "Sep 2026",
+      logoUrl: "/logos/hoskin.png",
+      summary:
+        "Instrument diagnostics and calibration work for a scientific equipment distributor, from board level repair on the bench through to a reporting tool that now runs in every Hoskin office in Canada.",
       bullets: [
         "Built a browser based offline tool in JavaScript and ExcelJS that parses instrument CSV exports into calibration worksheets, cutting report prep from 10 minutes to under 1.",
         "Pitched the tool to management unprompted. It was approved and deployed to all Hoskin offices across Canada, supporting 20+ calibration reports daily.",
@@ -166,6 +157,9 @@ export const site: SiteContent = {
       type: "part time",
       start: "2021",
       end: "Present",
+      icon: "truck",
+      summary:
+        "A standing technical role I have kept running alongside school, automating the freight paperwork and keeping the fleet's electrical systems diagnosed and repaired.",
       bullets: [
         "Automated Avaal freight manifest generation with a Python script, cutting per manifest time from 5 minutes to under 2 and recovering 50+ hours a year.",
         "Rebuilt payroll and expense tracking in Excel, replacing manual entry and reducing transcription errors across weekly reporting.",
@@ -180,9 +174,10 @@ export const site: SiteContent = {
       school: "McMaster University",
       url: "https://www.mcmaster.ca",
       credential: "B.Eng. Computer Engineering (Co-op)",
-      start: "todo",
+      start: "Sep 2024",
       end: "Apr 2029",
       average: "3.5",
+      logoUrl: "/logos/mcmaster.png",
       focus: [
         "Algorithm Design and Analysis",
         "Data Structures and Algorithms",
@@ -195,23 +190,112 @@ export const site: SiteContent = {
       ],
       honors: ["First Year Deans Honour Roll"],
     },
+    {
+      school: "Saltfleet District High School",
+      url: "https://saltfleetdistrict.hwdsb.on.ca",
+      credential: "Ontario Secondary School Diploma",
+      start: "Sep 2020",
+      end: "Jun 2024",
+      average: "97",
+      logoUrl: "/logos/saltfleet.png",
+      focus: [],
+      honors: ["Honour Roll every year"],
+      activities: [
+        "Robotics",
+        "Basketball",
+        "Executive Council",
+        "Mental Wellness Club",
+        "School Committee",
+      ],
+    },
   ],
 
   // draft descriptions and detail, Param to confirm names and rewrite the copy
   projects: [
     {
-      title: "Tamalide",
-      category: "Web / Team Project",
-      description: "todo, one line",
-      tech: [],
-      sourceUrl: "https://github.com/paramveer30",
+      title: "Tamalife",
+      category: "Mobile / OpenAI Build Week",
+      description:
+        "A subscription tracker disguised as a pet game. Every bill, warranty, and subscription lives as a creature whose health is computed from its real renewal date, so letting one lapse is something you can actually see.",
+      detail: [
+        "Subscriptions are designed to be forgotten, and every tracker on the market is a spreadsheet you have to remember to open. Tamalife turns each recurring cost into a creature in a pixel art garden whose health is derived live from its renewal or expiry date, so one left alone visibly withers until you renew, cancel, or switch. Snap a receipt and the parsing pipeline hatches a new creature with no manual entry.",
+        "Built in a team of four at OpenAI Build Week. I led UI/UX, designing the dashboard, creature detail and resolve flows along with a shared component and theming system that re-skins every screen from a single day and night palette.",
+        "I also built the push notification system end to end. Firebase Cloud Messaging on the client, device token storage in Supabase, scheduled reminder delivery off the Celery beat schedule that scans renewal and warranty thresholds, a preferences screen for channels and reminder timing, and deep linked tap flows that land on the right creature.",
+        "Native Firebase meant moving the project onto Expo and EAS development builds after Expo Go turned out to be incompatible, then validating the whole path, receipt scan to push to landing screen, across physical devices.",
+      ],
+      tech: [
+        "React Native",
+        "TypeScript",
+        "Expo/EAS",
+        "Firebase Cloud Messaging",
+        "Supabase",
+        "FastAPI",
+      ],
+      imageUrl: "/projects/tamalife.jpg",
+      sourceUrl: "https://github.com/paramveer30/Codex-Hackathon-Tamalife",
     },
     {
       title: "LetMeKnock",
-      category: "Open Source / Contribution",
-      description: "todo, one line",
-      tech: [],
-      sourceUrl: "https://github.com/paramveer30",
+      category: "Web / Full Stack",
+      description:
+        "A two sided housing marketplace for students, pairing listings and live landlord messaging with real commute times from every property to campus.",
+      detail: [
+        "Student housing search is two problems at once. Listings live in a dozen places, and the thing that actually decides whether a place works, how long it takes to get to campus, is never on the listing. LetMeKnock puts both in one view, around 9,100 lines of TypeScript across client and server.",
+        "The messaging layer runs on Socket.IO with conversation rooms, read receipts, unread count tracking and event driven notifications, sitting alongside 24 REST endpoints covering listings, image galleries, bookmarks and owner scoped permissions.",
+        "Each property is plotted on a Leaflet map with a campus pin, distance rings and route polylines, and OpenRouteService and the TravelTime API turn that into walk, bike, drive and transit times to campus rather than a straight line distance.",
+        "Underneath it is a normalised 12 table Postgres schema modelled in Drizzle ORM, with Zod validators shared end to end so the client and server agree on shape at compile time, and a 40 plus component design system built on Radix and Tailwind.",
+      ],
+      tech: [
+        "React",
+        "TypeScript",
+        "Express",
+        "Socket.IO",
+        "PostgreSQL",
+        "Drizzle ORM",
+        "Leaflet",
+        "Supabase",
+      ],
+      imageUrl: "/projects/letmeknock.jpg",
+      // repo taken down, so no source link rather than a dead one
+    },
+    {
+      title: "Vantage Labs",
+      category: "Web / Live Site",
+      description:
+        "A marketing site for a custom software consultancy, with interactive 3D scenes and a lead pipeline that routes contact forms and booking webhooks straight to email.",
+      detail: [
+        "A deployed marketing site for a software consultancy, built on the Next.js App Router with React 19 and TypeScript in strict mode. The public pages are static so they serve fast, with the dynamic work isolated to two API routes.",
+        "The landing scenes run on React Three Fiber over three.js, so the 3D is composed as React components and driven by the same state as the rest of the page rather than living in a separate canvas script.",
+        "Lead capture is the part that has to actually work. One route takes the contact form, another receives Cal.com booking webhooks, and both notify through Resend, so an enquiry or a booked call turns into an email without anyone watching a dashboard.",
+        "Kept deliberately small in scope, with Vitest covering the pieces worth testing and a readable commit history.",
+      ],
+      tech: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "React Three Fiber",
+        "three.js",
+        "Resend",
+      ],
+      imageUrl: "/projects/vantage-labs.jpg",
+      demoUrl: "https://vantagelabs.vercel.app/",
+      sourceUrl: "https://github.com/paramveer30/vantagelabsai",
+    },
+    {
+      title: "This Portfolio",
+      category: "Web / Personal",
+      description:
+        "The site you are reading, built from scratch rather than from a template, with every piece of copy and layout driven off a single typed content file.",
+      detail: [
+        "One page, built on the Next.js App Router with TypeScript in strict mode and Tailwind. Every section reads from one typed content file, so adding a role, a project or a hobby is a data change rather than a layout change.",
+        "The theme is a set of CSS custom properties with a light and a dark palette, following the operating system by default and remembering an explicit choice, with the swap applied before first paint so the page never flashes the wrong colours.",
+        "The hero sits on a canvas of drifting nodes that link up as they near each other and bend away from the cursor. Sections fade in as they scroll into view, and the hobbies are an accordion that expands on hover and cycles its photos.",
+        "Motion is written to disappear entirely under prefers-reduced-motion, and the palette is checked against WCAG contrast ratios rather than picked by eye.",
+      ],
+      tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Vitest"],
+      imageUrl: "/projects/portfolio.jpg",
+      sourceUrl: "https://github.com/paramveer30/Personal-Portfolio",
     },
     {
       title: "Spatial Mapping Using Time-of-Flight Sensor",
@@ -223,7 +307,8 @@ export const site: SiteContent = {
         "A host side script turns the polar sweeps into a point cloud and stitches successive rotations into a rough 3D model of the room.",
       ],
       tech: ["C++", "I2C", "UART", "VL53L1X"],
-      sourceUrl: "https://github.com/paramveer30",
+      imageUrl: "/projects/spatial-mapping.jpg",
+      sourceUrl: "https://github.com/paramveer30/Lidar-Spatial-Mapping-System",
     },
     {
       title: "Automated Baggage Handling System",
@@ -235,7 +320,9 @@ export const site: SiteContent = {
         "The Python control loop handles the pick and place geometry and the sorting logic, hitting 88 percent seat detection accuracy across test runs.",
       ],
       tech: ["Python", "Q-Arm"],
-      sourceUrl: "https://github.com/paramveer30",
+      imageUrl: "/projects/baggage-system.jpg",
+      sourceUrl:
+        "https://github.com/paramveer30/Automated-Airport-Baggage-System",
     },
   ],
 
@@ -286,16 +373,42 @@ export const site: SiteContent = {
     },
   ],
 
-  skillHighlights: ["Python", "React", "Next.js", "FastAPI"],
+  // the ones that render large and accented, everything else sits back
+  // drafted from what the resume actually evidences, Param to adjust
+  skillHighlights: [
+    "Python",
+    "C/C++",
+    "JavaScript",
+    "Git",
+    "ExcelJS",
+    "PCB Diagnostics",
+    "Soldering",
+    "Multimeter Testing",
+  ],
 
   // draft blurbs, Param to rewrite in his own voice
   passions: [
+    {
+      key: "parrots",
+      title: "The parrots",
+      blurb: "Two cockatiels, and a house that has not been quiet since.",
+      images: [
+        "/parrots/together.jpg",
+        "/parrots/yellow/1.jpg",
+        "/parrots/yellow/2.jpg",
+        "/parrots/grey/1.jpg",
+      ],
+    },
     {
       key: "basketball",
       title: "Basketball",
       blurb:
         "Pickup runs when I can find one, and a Raptors game whenever I can get a ticket.",
-      images: ["/journey/basketball/1.jpg", "/journey/basketball/2.jpg"],
+      images: [
+        "/journey/basketball/1.jpg",
+        "/journey/basketball/2.jpg",
+        "/journey/basketball/3.jpg",
+      ],
     },
     {
       key: "travel",
@@ -310,6 +423,7 @@ export const site: SiteContent = {
         "/journey/travel/5.jpg",
         "/journey/travel/6.jpg",
         "/journey/travel/7.jpg",
+        "/journey/travel/8.jpg",
       ],
     },
     {
@@ -341,32 +455,49 @@ export const site: SiteContent = {
       key: "food",
       title: "Food",
       blurb: "Always down to try the spot everyone keeps talking about.",
-      images: [],
+      images: [
+        "/journey/food/1.jpg",
+        "/journey/food/2.jpg",
+        "/journey/food/3.jpg",
+        "/journey/food/4.jpg",
+        "/journey/food/5.jpg",
+        "/journey/food/6.jpg",
+        "/journey/food/7.jpg",
+      ],
     },
   ],
 
-  favorites: {
-    rapper: "Drake",
-    movies: [
-      { title: "Se7en", posterUrl: "" },
-      { title: "3 Idiots", posterUrl: "" },
-    ],
-    song: "Superpowers",
-    songArtist: "Daniel Caesar",
-    songUrl: "",
-    albumArtUrl: "",
-    ufcFighter: "Carlos Prates",
-  },
+  favorites: [
+    {
+      label: "Artist",
+      title: "Bruno Mars",
+      imageUrl: "/favorites/bruno-mars.jpg",
+    },
+    {
+      label: "On repeat",
+      title: "Superpowers",
+      meta: "Daniel Caesar",
+      imageUrl: "/favorites/superpowers.jpg",
+    },
+    { label: "Movie", title: "Se7en", imageUrl: "/favorites/se7en.jpg" },
+    { label: "Movie", title: "3 Idiots", imageUrl: "/favorites/3idiots.jpg" },
+    {
+      label: "Team",
+      title: "Toronto Raptors",
+      imageUrl: "/favorites/raptors.png",
+    },
+  ],
 
   contact: {
     email: "multap1@mcmaster.ca",
     linkedin: "https://linkedin.com/in/paramveermt",
     github: "https://github.com/paramveer30",
-    instagram: "todo, instagram url",
+    instagram: "https://instagram.com/paramveer.m",
+    x: "https://x.com/Paramveermt",
     formAccessKey: "",
   },
 
   resumeUrl: "/resume.pdf",
   portraitUrl: "/portrait.jpg",
-  references: [],
+  aboutImageUrl: "/about.jpg",
 };
