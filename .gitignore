@@ -31,6 +31,7 @@ yarn-error.log*
 PROMPT.md
 prompt.md
 Param-Contents/
+ref_photos/
 
 # portrait source photo (see PROMPT.md section 10)
 /assets/portrait-source.*
