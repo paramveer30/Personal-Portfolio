@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="PM">
+  <defs>
+    <!-- the same gold ramp the site uses, accent through accent-deep -->
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8c893" />
+      <stop offset="0.55" stop-color="#d8b27a" />
+      <stop offset="1" stop-color="#b98f56" />
+    </linearGradient>
+  </defs>
+
+  <!-- warm brown ground, the site's surface tone -->
+  <rect width="64" height="64" rx="14" fill="#2a2420" />
+
+  <!-- Dancing Script is the site's script face, with the platform cursives behind it
+       so the mark still reads as handwriting wherever the font is not installed -->
+  <text
+    x="32"
+    y="45"
+    text-anchor="middle"
+    font-family="'Dancing Script', 'Segoe Script', 'Brush Script MT', 'Snell Roundhand', cursive"
+    font-size="36"
+    font-weight="700"
+    fill="url(#gold)"
+  >PM</text>
+</svg>
