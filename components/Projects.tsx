@@ -8,7 +8,9 @@ import { site } from "@/content/site";
 
 // copy that has not been written yet is parked as "todo", keep it off the page
 function written(value: string) {
-  return value.trim().length > 0 && !value.trim().toLowerCase().startsWith("todo");
+  return (
+    value.trim().length > 0 && !value.trim().toLowerCase().startsWith("todo")
+  );
 }
 
 export function Projects() {

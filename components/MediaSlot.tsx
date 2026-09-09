@@ -5,10 +5,18 @@ interface MediaSlotProps {
   alt: string;
   label: string;
   className?: string;
+  // set on the LCP image only, so it is fetched eagerly instead of lazily
+  priority?: boolean;
 }
 
 // reserves the space for an image, shows a dashed placeholder until a real src is set
-export function MediaSlot({ src, alt, label, className = "" }: MediaSlotProps) {
+export function MediaSlot({
+  src,
+  alt,
+  label,
+  className = "",
+  priority = false,
+}: MediaSlotProps) {
   if (!src) {
     return (
       <div
@@ -23,12 +31,11 @@ export function MediaSlot({ src, alt, label, className = "" }: MediaSlotProps) {
     // fill makes the image stretch to match this wrapper instead of needing a fixed width and height,
     // it needs position relative on the wrapper to know what to fill
     <div className={`relative overflow-hidden rounded-md ${className}`}>
-      {/* unoptimized skips the on-disk image cache, this machine is out of C: space */}
       <Image
         src={src}
         alt={alt}
         fill
-        unoptimized
+        priority={priority}
         className="object-cover object-top"
         sizes="(max-width: 768px) 90vw, 340px"
       />

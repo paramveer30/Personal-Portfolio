@@ -46,7 +46,8 @@ export function Education() {
                         ) : null}
                         {school.gpa ? (
                           <>
-                            GPA <span className="text-accent">{school.gpa}</span>
+                            GPA{" "}
+                            <span className="text-accent">{school.gpa}</span>
                           </>
                         ) : null}
                       </p>

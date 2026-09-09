@@ -107,35 +107,63 @@ export function Contact() {
             aria-hidden="true"
           />
 
+          {/* labels are visually hidden so the layout is unchanged, but every field keeps an
+              accessible name once the placeholder disappears on typing */}
           <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="contact-name" className="sr-only">
+                Name
+              </label>
+              <input
+                id="contact-name"
+                name="name"
+                autoComplete="name"
+                placeholder="Name"
+                required
+                className="border-border bg-surface text-text focus:ring-accent w-full rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
+              />
+            </div>
+            <div>
+              <label htmlFor="contact-email" className="sr-only">
+                Email
+              </label>
+              <input
+                id="contact-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="Email"
+                required
+                className="border-border bg-surface text-text focus:ring-accent w-full rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="contact-subject" className="sr-only">
+              Subject
+            </label>
             <input
-              name="name"
-              placeholder="Name"
-              required
-              className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
-            />
-            <input
-              name="email"
-              type="email"
-              placeholder="Email"
-              required
-              className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
+              id="contact-subject"
+              name="subject"
+              placeholder="Subject"
+              className="border-border bg-surface text-text focus:ring-accent w-full rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
             />
           </div>
 
-          <input
-            name="subject"
-            placeholder="Subject"
-            className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
-          />
-
-          <textarea
-            name="message"
-            placeholder="Message"
-            required
-            rows={5}
-            className="border-border bg-surface text-text focus:ring-accent rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
-          />
+          <div>
+            <label htmlFor="contact-message" className="sr-only">
+              Message
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              placeholder="Message"
+              required
+              rows={5}
+              className="border-border bg-surface text-text focus:ring-accent w-full rounded-md border px-5 py-4 text-base focus:ring-2 focus:outline-none"
+            />
+          </div>
 
           <button
             type="submit"
@@ -145,13 +173,16 @@ export function Contact() {
             {status === "loading" ? "Sending..." : "Send"}
           </button>
 
+          {/* roles so the outcome is announced on insert, not signalled by colour alone */}
           {status === "success" && (
-            <p className="text-accent text-base">
+            <p role="status" className="text-accent text-base">
               Thanks, that&apos;s on its way.
             </p>
           )}
           {status === "error" && (
-            <p className="text-accent text-base">{error}</p>
+            <p role="alert" className="text-accent text-base">
+              {error}
+            </p>
           )}
         </form>
 

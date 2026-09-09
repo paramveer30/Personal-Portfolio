@@ -33,8 +33,7 @@ export function LogoBadge({ src, icon, name, className = "" }: LogoBadgeProps) {
       className={`border-border bg-surface relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${className}`}
     >
       {src ? (
-        // unoptimized skips the on-disk image cache, this machine is out of C: space
-        <Image src={src} alt="" fill unoptimized sizes="48px" />
+        <Image src={src} alt="" fill sizes="48px" />
       ) : drawn ? (
         <svg
           width="26"

@@ -1,5 +1,5 @@
 // single source of truth for every piece of copy on the site
-// fields still marked "todo" need real answers from param before launch
+// change what the site says here, not in the components
 
 export interface ExperienceItem {
   title: string;
@@ -40,7 +40,7 @@ export interface ProjectItem {
   tech: string[];
   // longer write up shown when the card is expanded
   detail?: string[];
-  // screenshot, todo until param sends one
+  // thumbnail shown at the head of the row, falls back to a placeholder frame
   imageUrl?: string;
   demoUrl?: string;
   sourceUrl?: string;
@@ -105,6 +105,16 @@ export interface SiteContent {
   // second photo, sits beside the about copy. empty shows a placeholder frame
   aboutImageUrl: string;
 }
+
+// production origin. canonical urls, open graph tags, the sitemap and robots.txt all hang off
+// this. resolved rather than hard coded so it is right in every environment without editing:
+// vercel fills the middle branch on a real deploy, and NEXT_PUBLIC_SITE_URL overrides both
+// once there is a custom domain
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
 export const site: SiteContent = {
   name: "Paramveer Multani",

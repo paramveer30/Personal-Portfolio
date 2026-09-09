@@ -101,7 +101,6 @@ function PassionPhotos({
           src={src}
           alt=""
           fill
-          unoptimized
           sizes={sizes}
           className={`object-cover transition-opacity duration-1000 ${
             kenBurns ? "ken-burns" : ""
@@ -196,7 +195,7 @@ export function Journey() {
                   onMouseEnter={() => openPanel(index)}
                   onFocus={() => openPanel(index)}
                   onClick={() => openPanel(index)}
-                  className={`group bg-surface relative cursor-pointer overflow-hidden rounded-2xl border text-left transition-[flex-grow,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none ${
+                  className={`group bg-surface focus-visible:outline-accent relative cursor-pointer overflow-hidden rounded-2xl border text-left transition-[flex-grow,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 ${
                     open
                       ? "border-accent/50 flex-[5] shadow-[0_0_60px_-25px_var(--accent)]"
                       : "border-border hover:border-accent/40 flex-[1]"
@@ -214,7 +213,9 @@ export function Journey() {
                   <span
                     aria-hidden="true"
                     className={`absolute inset-0 transition-all duration-500 ${
-                      open ? "bg-black/0" : "bg-black/55 group-hover:bg-black/40"
+                      open
+                        ? "bg-black/0"
+                        : "bg-black/55 group-hover:bg-black/40"
                     }`}
                   />
 
@@ -253,7 +254,9 @@ export function Journey() {
           </div>
 
           {/* mobile, the same thing as a tap to open stack */}
-          <div className={`flex flex-col gap-3 transition-all duration-700 md:hidden ${rise}`}>
+          <div
+            className={`flex flex-col gap-3 transition-all duration-700 md:hidden ${rise}`}
+          >
             {site.passions.map((passion, index) => {
               const open = openKey === passion.key;
               const panelId = `passion-${passion.key}`;
@@ -274,11 +277,7 @@ export function Journey() {
                     }}
                     className="relative flex h-24 w-full items-center justify-between px-6 text-left"
                   >
-                    <PassionPhotos
-                      passion={passion}
-                      frame={0}
-                      sizes="100vw"
-                    />
+                    <PassionPhotos passion={passion} frame={0} sizes="100vw" />
                     <span
                       aria-hidden="true"
                       className="absolute inset-0 bg-black/55"
@@ -309,9 +308,7 @@ export function Journey() {
                           <div className="relative mb-4 aspect-[16/10] w-full overflow-hidden rounded-xl">
                             <PassionPhotos
                               passion={passion}
-                              frame={
-                                index === active && open ? frame : 0
-                              }
+                              frame={index === active && open ? frame : 0}
                               sizes="92vw"
                             />
                           </div>
@@ -345,7 +342,6 @@ export function Journey() {
                       src={favorite.imageUrl}
                       alt={favorite.title}
                       fill
-                      unoptimized
                       sizes="(max-width: 640px) 44vw, (max-width: 1024px) 28vw, 200px"
                       className="object-cover"
                     />
