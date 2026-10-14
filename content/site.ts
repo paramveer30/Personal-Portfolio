@@ -133,7 +133,7 @@ export const site: SiteContent = {
   tagline:
     "Computer Engineering student at McMaster. I build software, embedded hardware, and lately machine learning models.",
   bio: [
-    "I'm in Computer Engineering at McMaster. This summer I was an instrument technician intern at Hoskin Scientific, repairing scientific instruments down to the board and writing the calibration software that every Hoskin office in Canada now uses.",
+    "I'm in Computer Engineering at McMaster. This summer I was an instrument technician intern at Hoskin Scientific, repairing scientific instruments down to the board, writing the calibration software that every Hoskin office in Canada now uses, and building a model that catches sensors drifting toward failure.",
     "Most of my projects start with wanting to know how something works. Right now that's Hex Coach, a trainer for Catan-style games with its own rules engine and bots. Before that I built a companion robot that reads emotion from your words, voice and face, and a scanner that maps a room using one distance sensor on a motor.",
   ],
   location: "Toronto, Ontario",
@@ -156,19 +156,21 @@ export const site: SiteContent = {
       end: "Sep 2026",
       logoUrl: "/logos/hoskin.png",
       summary:
-        "Hoskin sells and services scientific instruments across Canada. I spent the summer on the repair and calibration bench, and wrote software that took most of the busywork out of calibration.",
+        "Hoskin sells, rents and services scientific instruments across Canada. I spent the summer on the repair and calibration bench, and wrote two pieces of software for it: a report generator that every office now uses, and a model that flags sensors going bad before they fail spec.",
       bullets: [
         "Wrote a browser tool in JavaScript and ExcelJS that turns an instrument's CSV export into a finished calibration worksheet. Report prep went from about 10 minutes to under 1, and it works offline.",
         "Pitched the tool to management on my own. They approved it and rolled it out to every Hoskin office in Canada, where it now backs 20+ calibration reports a day.",
-        // TODO: add the model type, the sensors it covered, and a before/after number
-        "Built a machine learning model to automate sensor calibration.",
+        "Built an anomaly detector in Python, pandas and scikit-learn for YSI ProDSS and EXO water quality sensors. A sensor can pass every spec limit while drifting a little further each calibration, so spec rules mark anything out of range High, and an Isolation Forest scores the rest as Good or Watch.",
+        "Engineered its features from raw calibration exports, including pH slope, conductivity cell constant and drift since each sensor's last calibration. I split train and test by serial number, so no sensor showed up in both and inflated the results.",
         "Brought 100+ instruments back into service with board-level repair: finding the failed component with a multimeter, then resoldering or replacing it.",
         "Ran calibration, continuity testing, firmware updates and certification on YSI, DJI, Sontek and TSI equipment, and escalated faults to the manufacturer when they couldn't be fixed on the bench.",
       ],
       skills: [
         "JavaScript",
         "ExcelJS",
-        "Machine Learning",
+        "Python",
+        "scikit-learn",
+        "pandas",
         "PCB Diagnostics",
         "Multimeter Testing",
         "Soldering",
@@ -498,7 +500,14 @@ export const site: SiteContent = {
     },
     {
       category: "ML & Data",
-      items: ["PyTorch", "Transformers", "NumPy", "pandas", "Matplotlib"],
+      items: [
+        "PyTorch",
+        "scikit-learn",
+        "Transformers",
+        "NumPy",
+        "pandas",
+        "Matplotlib",
+      ],
     },
     {
       category: "Web & Backend",
