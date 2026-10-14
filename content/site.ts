@@ -133,22 +133,22 @@ export const site: SiteContent = {
   tagline:
     "Computer Engineering student at McMaster. I build software, embedded hardware, and lately machine learning models.",
   bio: [
-    "I'm in Computer Engineering at McMaster. This summer I was an instrument technician intern at Hoskin Scientific, repairing scientific instruments down to the board, writing the calibration software that every Hoskin office in Canada now uses, and building a model that catches sensors drifting toward failure.",
-    "Most of my projects start with wanting to know how something works. Right now that's Hex Coach, a trainer for Catan-style games with its own rules engine and bots. Before that I built a companion robot that reads emotion from your words, voice and face, and a scanner that maps a room using one distance sensor on a motor.",
+    "I'm in Computer Engineering at McMaster. This summer I was an instrument technician intern at Hoskin Scientific, repairing scientific instruments down to the board, and building two calibration tools that every Hoskin office in Canada now uses: a report generator and a model that catches sensors drifting toward failure.",
+    "Most of my projects start with wanting to know how something works. Right now that's Hexcoach, a trainer for Catan-style games with its own rules engine and bots. Before that I built a companion robot that reads emotion from your words, voice and face, and a scanner that maps a room using one distance sensor on a motor.",
   ],
   location: "Toronto, Ontario",
   availability: "Looking for a Winter 2027 co-op",
 
   about: {
     approach:
-      "I want to understand a system before I change it. At Hoskin that meant probing a dead board one component at a time. On Hex Coach it means checking the game state after every move of a thousand simulated games. On the robot project it meant scoring the test set once, at the very end, and publishing the result even though it wasn't the one I wanted.",
+      "I want to understand a system before I change it. At Hoskin that meant probing a dead board one component at a time. On Hexcoach it means checking six invariants after every move, 905,000 moves in all, which is also how I caught a seat bias that had skewed every bot comparison. On the robot project it meant scoring the test set once, at the very end, and publishing the result even though it wasn't the one I wanted.",
     whatIDo:
-      "Back in classes this fall, building Hex Coach on the side, and still working part time at BS Transportation.",
+      "Back in classes this fall, building Hexcoach on the side, and still working part time at BS Transportation.",
   },
 
   experience: [
     {
-      title: "Instrument Technician Intern",
+      title: "Calibration & Test Engineering Intern",
       company: "Hoskin Scientific",
       location: "Oakville, ON",
       type: "internship",
@@ -156,12 +156,12 @@ export const site: SiteContent = {
       end: "Sep 2026",
       logoUrl: "/logos/hoskin.png",
       summary:
-        "Hoskin sells, rents and services scientific instruments across Canada. I spent the summer on the repair and calibration bench, and wrote two pieces of software for it: a report generator that every office now uses, and a model that flags sensors going bad before they fail spec.",
+        "Hoskin sells, rents and services scientific instruments across Canada. I spent the summer on the repair and calibration bench, and wrote two tools for it: a report generator, and a model that checks calibration data before a report is signed off. Both are now used at every Hoskin office in Canada.",
       bullets: [
         "Wrote a browser tool in JavaScript and ExcelJS that turns an instrument's CSV export into a finished calibration worksheet. Report prep went from about 10 minutes to under 1, and it works offline.",
-        "Pitched the tool to management on my own. They approved it and rolled it out to every Hoskin office in Canada, where it now backs 20+ calibration reports a day.",
-        "Built an anomaly detector in Python, pandas and scikit-learn for YSI ProDSS and EXO water quality sensors. A sensor can pass every spec limit while drifting a little further each calibration, so spec rules mark anything out of range High, and an Isolation Forest scores the rest as Good or Watch.",
+        "Trained a machine learning model in Python on historical calibration reports for YSI ProDSS and EXO water quality sensors. It checks incoming calibration data before a report is signed off: spec rules mark out-of-range readings High, and an Isolation Forest (scikit-learn) marks sensors that still pass but are drifting or reading unlike healthy ones as Watch.",
         "Engineered its features from raw calibration exports, including pH slope, conductivity cell constant and drift since each sensor's last calibration. I split train and test by serial number, so no sensor showed up in both and inflated the results.",
+        "Pitched both tools to management on my own and wrote the SOP technicians now follow. They're in use at every Hoskin office in Canada, and the report tool backs 20+ calibration reports a day.",
         "Brought 100+ instruments back into service with board-level repair: finding the failed component with a multimeter, then resoldering or replacing it.",
         "Ran calibration, continuity testing, firmware updates and certification on YSI, DJI, Sontek and TSI equipment, and escalated faults to the manufacturer when they couldn't be fixed on the bench.",
       ],
@@ -177,19 +177,19 @@ export const site: SiteContent = {
       ],
     },
     {
-      title: "Operations & Technical Assistant",
+      title: "Operations & Systems Coordinator",
       company: "BS Transportation",
       location: "Hamilton, ON",
       type: "part time",
-      start: "2021",
+      start: "Feb 2021",
       end: "Present",
       icon: "truck",
       summary:
         "A part-time job I've kept since 2021, alongside school. I handle a mix of office automation and electrical work on the trucks.",
       bullets: [
         "Wrote a Python script that generates Avaal freight manifests. Each one went from 5 minutes to under 2, which adds up to more than 50 hours a year.",
-        "Moved payroll and expense tracking from hand entry into Excel, which got rid of the transcription errors in weekly reporting.",
-        "Diagnosed and repaired truck electrical faults by tracing and reorganizing the wiring. Diagnosis got 25% faster and fleet downtime dropped by 20%.",
+        "Built Excel tools for payroll and expense tracking that replaced a fully manual process and cut data entry by about 40%.",
+        "Rewired and reorganized the trucks' electrical harnesses so faults are quicker to isolate. Diagnosis got 25% faster and fleet downtime dropped by 20%.",
       ],
       skills: ["Python", "Excel", "Electrical Diagnostics"],
     },
@@ -201,19 +201,19 @@ export const site: SiteContent = {
       url: "https://www.mcmaster.ca",
       credential: "B.Eng. Computer Engineering (Co-op)",
       start: "Sep 2024",
-      end: "Apr 2029",
+      end: "Apr 2028",
       average: "3.5",
       logoUrl: "/logos/mcmaster.png",
       focus: [
         "Algorithm Design and Analysis",
         "Data Structures and Algorithms",
         "Software Development",
-        "Artificial Intelligence",
+        "AI: Innovative Technologies",
         "Advanced Probability and Random Processes",
         "Digital Systems Design",
         "Signals and Systems",
         "Computer Systems Integration",
-        "Microprocessors",
+        "Microprocessor Systems",
       ],
       honors: ["First Year Dean's Honour List"],
     },
@@ -239,42 +239,43 @@ export const site: SiteContent = {
 
   projects: [
     {
-      title: "Hex Coach",
-      category: "Game AI / Full Stack",
+      title: "Hexcoach",
+      category: "Game AI / Machine Learning",
       status: "In progress",
       description:
-        "A trainer for Catan-style board games. You play against bots while a coach explains which moves were good and why. It all runs on a rules engine I wrote from scratch in Python.",
+        "A Catan-style game engine and AI coach. You play against bots while a coach explains which moves were good and why. I wrote the rules engine from scratch, and the strongest bot is a tree search guided by a neural network trained on self-play.",
       detail: [
         "The idea is chess.com for a settle-and-trade hex game. Play the bots, ask for a hint on any turn, watch a win-chance bar move, and practise opening placements, which decide more games than anything else.",
         "The engine covers the full base rules: seeded boards with no touching 6s and 8s, snake-order setup, production, the robber and discards on a 7, bank shortages, port trades, and Longest Road as a depth-first search over each player's roads. A game state is never edited in place, so the same seed and moves always replay the same game.",
-        "Hypothesis property tests check invariants after every move, like each resource always totalling 19 cards and no two buildings touching. A thousand simulated games, about 900,000 moves, zero violations.",
-        "The first bot scores corners by pips, resource variety and ports, then follows a build order. Over 300 seeded games with rotated seating it beat two random bots 99% of the time (95% CI 97.9 to 100%), and the whole tournament ran in under two seconds.",
-        "A FastAPI server holds game sessions and streams bot moves to a Next.js front end over a WebSocket, and the board is hand-drawn SVG. Next is a Monte Carlo Tree Search bot for the medium and hard levels, which the coach will also use to pick and explain its hints.",
+        "Six invariants, like each resource always totalling 19 cards and no two buildings touching, are checked after every move. Across 1,000 simulated games that's 905,000 moves with zero failures, and 147 tests run in CI on every push.",
+        "Early benchmarks had a hidden seat bias: three identical bots won 109, 106 and 85 games depending on where they sat, which skewed every comparison. I rebuilt the tournament with rotated seating and 95% confidence intervals. The rule-based bot now beats two random bots 99% of the time (95% CI 97.9 to 100%).",
+        "The search bot runs Monte Carlo Tree Search on a 2-second budget, guided by a PyTorch value and policy network trained on self-play games generated in parallel. Profiling showed copying game states was the hot path, so I got a clone down to 0.98 µs, then ported the engine to Rust with PyO3 and checked it by replaying seeded games through both engines.",
+        "A FastAPI server holds game sessions and streams bot moves to a Next.js front end over a WebSocket, with a hand-drawn SVG board.",
       ],
       tech: [
         "Python",
+        "PyTorch",
+        "Monte Carlo Tree Search",
+        "Rust (PyO3)",
         "FastAPI",
-        "WebSockets",
-        "pytest",
-        "Hypothesis",
         "Next.js",
-        "TypeScript",
-        "Zustand",
+        "Hypothesis",
+        "GitHub Actions",
       ],
       images: [
         {
           src: "/projects/hexcoach-home.jpg",
-          alt: "Hex Coach home page with a generated hex board",
+          alt: "Hexcoach home page with a generated hex board",
           caption: "Home page. Every board is generated from a seed.",
         },
         {
           src: "/projects/hexcoach-game.jpg",
-          alt: "A Hex Coach game against two bots, with the coach controls and win-chance bar",
+          alt: "A Hexcoach game against two bots, with the coach controls and win-chance bar",
           caption: "A game against two bots, with the coach set to nudge.",
         },
         {
           src: "/projects/hexcoach-openings.jpg",
-          alt: "Hex Coach opening practice, with every legal corner scored on the board",
+          alt: "Hexcoach opening practice, with every legal corner scored on the board",
           caption: "Opening practice. Bigger, brighter corners score higher.",
         },
       ],
@@ -289,7 +290,7 @@ export const site: SiteContent = {
         "The task was to read emotion from spoken turns in MELD, a set of dialogue clips from Friends labelled with seven emotions, and have a robot respond to it live.",
         "Each turn goes through three models. Whisper transcribes the speech and a RoBERTa model I fine-tuned reads the words, with the last two turns as context. A small head I trained on frozen WavLM features reads the voice. A face model runs on webcam frames while you're still talking, so it adds no wait at the end.",
         "The three predictions are averaged, and a temperature fitted on the dev set makes the confidence it shows match how often it's actually right. When the voice or face disagrees with the words, like a happy sentence said angrily, the robot checks in instead of guessing. Replies stream from Qwen2.5-1.5B through Ollama and Kokoro speaks them one sentence at a time.",
-        "The emotion is ready 0.28 s after you stop talking, and the robot starts speaking at 0.58 s. On the MELD test set the text model reaches 0.638 weighted F1, against 0.313 for always guessing neutral. Adding the voice helped on dev but not on test. I scored test once, at the end, and reported that rather than retuning to make it look better.",
+        "The emotion is ready 0.28 s after you stop talking, and the robot starts speaking at 0.58 s. On the MELD test set the text model reaches 0.638 weighted F1, about double the 0.313 you get from always guessing neutral. Adding the voice helped on dev but not on test. I scored test once, at the end, and reported that rather than retuning to make it look better.",
         "The whole system is 2.18 billion parameters, inside the challenge's 6 billion cap, with 206 tests that run on a CPU in about 15 seconds.",
       ],
       tech: [
@@ -333,7 +334,7 @@ export const site: SiteContent = {
         "An MSP432E401Y (ARM Cortex-M4F) drives a 28BYJ-48 stepper through a ULN2003 driver and reads a VL53L1X sensor over I2C, taking 64 distance samples per revolution. Two buttons start and pause a scan, and LEDs show what it's doing.",
         "The firmware is bare-metal C written in Keil, with GPIO interrupts, SysTick timing, I2C and UART all set up by hand.",
         "Readings stream to a PC over UART at 115200 bps. A Python script converts each sweep from polar to Cartesian coordinates, stacks the sweeps 100 mm apart, and draws the result in Matplotlib. These scans are of a hallway in McMaster's Engineering Technology Building.",
-        "The parts came to about $80.",
+        "Profiling each stage showed where the time went: the stepper took 640 ms per point against 32 ms of bus overhead, so the motor, not the sensor or the link, sets the scan speed. The parts came to about $80.",
       ],
       tech: ["C", "ARM Cortex-M4F", "I2C", "UART", "Python", "Matplotlib"],
       images: [
@@ -416,12 +417,12 @@ export const site: SiteContent = {
       sourceUrl: "https://github.com/paramveer30/vantagelabsai",
     },
     {
-      title: "LetMeKnock",
+      title: "HousingHub",
       category: "Web / Full Stack",
       description:
         "A student housing marketplace with live landlord messaging and real commute times from every listing to campus.",
       detail: [
-        "Finding student housing means checking a dozen sites, and none of them tell you the one thing that matters most: how long it takes to get to class. LetMeKnock puts listings and commute times in the same place, in about 9,100 lines of TypeScript.",
+        "Finding student housing means checking a dozen sites, and none of them tell you the one thing that matters most: how long it takes to get to class. HousingHub puts listings and commute times in the same place, in about 9,100 lines of TypeScript.",
         "Messaging runs on Socket.IO with conversation rooms, read receipts and unread counts. Alongside it are 24 REST endpoints for listings, photo galleries, bookmarks and owner-only permissions.",
         "Each listing sits on a Leaflet map with a campus pin, distance rings and route lines. OpenRouteService and the TravelTime API give walk, bike, drive and transit times instead of a straight-line distance.",
         "The data is a 12-table Postgres schema in Drizzle ORM, with Zod validators shared by client and server so both sides agree on every shape at compile time.",
@@ -439,7 +440,8 @@ export const site: SiteContent = {
       images: [
         {
           src: "/projects/letmeknock.jpg",
-          alt: "LetMeKnock listing map with commute times",
+          alt: "HousingHub landing page, shipped under the name LetMeKnock",
+          caption: "Shipped under the name LetMeKnock.",
         },
       ],
       // repo taken down, so no source link rather than a dead one
@@ -490,6 +492,7 @@ export const site: SiteContent = {
       items: [
         "Python",
         "C/C++",
+        "Rust",
         "TypeScript",
         "JavaScript",
         "SQL",
@@ -507,6 +510,8 @@ export const site: SiteContent = {
         "NumPy",
         "pandas",
         "Matplotlib",
+        "Monte Carlo Tree Search",
+        "Ollama",
       ],
     },
     {
@@ -517,11 +522,14 @@ export const site: SiteContent = {
         "React Native",
         "Tailwind CSS",
         "FastAPI",
+        "Node.js",
         "Express",
+        "REST APIs",
         "Socket.IO",
         "WebSockets",
         "PostgreSQL",
         "Supabase",
+        "Firebase",
         "Chrome Extensions (Manifest V3)",
       ],
     },
@@ -541,8 +549,12 @@ export const site: SiteContent = {
       ],
     },
     {
-      category: "Hardware",
+      category: "Embedded & Hardware",
       items: [
+        "ARM Cortex-M4F",
+        "Bare-Metal C",
+        "I2C",
+        "UART",
         "PCB Diagnostics",
         "Soldering",
         "Multimeter Testing",
