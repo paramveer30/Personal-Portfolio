@@ -169,7 +169,6 @@ export default function HomePage() {
 
       {/* about and journey handle their own reveal so their panels can stagger in */}
       <About />
-      <Journey />
       <Reveal>
         <Experience />
       </Reveal>
@@ -182,6 +181,7 @@ export default function HomePage() {
       <Reveal>
         <Skills />
       </Reveal>
+      <Journey />
       <Reveal>
         <Contact />
       </Reveal>

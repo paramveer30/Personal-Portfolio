@@ -237,7 +237,7 @@ export function Journey() {
       className="border-border flex min-h-screen scroll-mt-20 flex-col border-t px-6 py-24 lg:py-28"
     >
       <div className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col">
-        <SectionHeading label="Journey">Outside of work</SectionHeading>
+        <SectionHeading label="Journey">Outside of school</SectionHeading>
 
         <div className="mt-12 flex flex-1 flex-col gap-10 sm:mt-16">
           {/* desktop, hovering a slat opens it and squeezes the rest into labelled strips */}

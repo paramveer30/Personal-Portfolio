@@ -3,10 +3,10 @@ import { site } from "@/content/site";
 
 const footerLinks = [
   { href: "#about", label: "About" },
-  { href: "#journey", label: "Journey" },
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
+  { href: "#journey", label: "Journey" },
   { href: "#contact", label: "Contact" },
 ];
 

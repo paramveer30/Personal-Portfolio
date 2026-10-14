@@ -8,11 +8,11 @@ import { site } from "@/content/site";
 // nav items as plain data for now, moves into content/site.ts once section content exists
 const navLinks = [
   { href: "#about", label: "About" },
-  { href: "#journey", label: "Journey" },
   { href: "#experience", label: "Experience" },
   { href: "#education", label: "Education" },
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
+  { href: "#journey", label: "Journey" },
   { href: "#contact", label: "Contact" },
 ];
 
