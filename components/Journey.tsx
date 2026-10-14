@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { SectionHeading } from "@/components/SectionHeading";
 import { site } from "@/content/site";
@@ -111,21 +111,38 @@ function PassionPhotos({
   );
 }
 
-// the dot row plus the n of total counter shown on an open panel
-function FrameDots({ passion, frame }: { passion: Passion; frame: number }) {
+// clickable dots plus the n of total counter shown on an open panel
+function FrameDots({
+  passion,
+  frame,
+  onPick,
+}: {
+  passion: Passion;
+  frame: number;
+  onPick: (index: number) => void;
+}) {
   if (passion.images.length < 2) return null;
 
   return (
     <span className="flex shrink-0 items-center gap-3">
-      <span className="flex gap-1.5">
+      <span className="flex gap-0.5">
         {passion.images.map((src, i) => (
-          <span
+          <button
             key={src}
-            aria-hidden="true"
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === frame ? "bg-accent w-5" : "bg-muted/40 w-1.5"
-            }`}
-          />
+            type="button"
+            aria-label={`${passion.title} photo ${i + 1} of ${passion.images.length}`}
+            aria-current={i === frame}
+            onClick={() => onPick(i)}
+            className="flex h-6 items-center px-0.5"
+          >
+            <span
+              className={`block h-1.5 rounded-full transition-all duration-300 ${
+                i === frame
+                  ? "bg-accent w-5"
+                  : "bg-muted/40 hover:bg-muted w-1.5"
+              }`}
+            />
+          </button>
         ))}
       </span>
       <span
@@ -135,6 +152,55 @@ function FrameDots({ passion, frame }: { passion: Passion; frame: number }) {
         {frame + 1} / {passion.images.length}
       </span>
     </span>
+  );
+}
+
+// the left and right arrows laid over an open panel's photo
+function PhotoArrows({
+  passion,
+  onStep,
+}: {
+  passion: Passion;
+  onStep: (delta: number) => void;
+}) {
+  if (passion.images.length < 2) return null;
+
+  const arrow = (delta: number, label: string, path: string, side: string) => (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={(event) => {
+        event.stopPropagation();
+        onStep(delta);
+      }}
+      className={`absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75 ${side}`}
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d={path} />
+      </svg>
+    </button>
+  );
+
+  return (
+    <>
+      {arrow(
+        -1,
+        `Previous ${passion.title} photo`,
+        "M15 18l-6-6 6-6",
+        "left-4",
+      )}
+      {arrow(1, `Next ${passion.title} photo`, "M9 18l6-6-6-6", "right-4")}
+    </>
   );
 }
 
@@ -155,18 +221,12 @@ export function Journey() {
     setFrame(0);
   };
 
-  useEffect(() => {
-    const passion = site.passions[active];
-    if (!passion) return;
-    const count = passion.images.length;
+  // photos only change when the visitor asks, never on a timer
+  const step = (delta: number) => {
+    const count = site.passions[active]?.images.length ?? 0;
     if (count < 2) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const id = window.setInterval(() => {
-      setFrame((f) => (f + 1) % count);
-    }, 3800);
-    return () => window.clearInterval(id);
-  }, [active]);
+    setFrame((f) => (f + delta + count) % count);
+  };
 
   const rise = shown ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0";
 
@@ -187,18 +247,15 @@ export function Journey() {
             {site.passions.map((passion, index) => {
               const open = index === active;
               return (
-                <button
+                <div
                   key={passion.key}
-                  type="button"
-                  aria-expanded={open}
-                  aria-label={passion.title}
-                  onMouseEnter={() => openPanel(index)}
-                  onFocus={() => openPanel(index)}
-                  onClick={() => openPanel(index)}
-                  className={`group bg-surface focus-visible:outline-accent relative cursor-pointer overflow-hidden rounded-2xl border text-left transition-[flex-grow,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 ${
+                  onMouseEnter={() => {
+                    if (!open) openPanel(index);
+                  }}
+                  className={`group bg-surface relative overflow-hidden rounded-2xl border text-left transition-[flex-grow,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     open
                       ? "border-accent/50 flex-[5] shadow-[0_0_60px_-25px_var(--accent)]"
-                      : "border-border hover:border-accent/40 flex-[1]"
+                      : "border-border hover:border-accent/40 flex-[1] cursor-pointer"
                   }`}
                 >
                   <PassionPhotos
@@ -219,16 +276,28 @@ export function Journey() {
                     }`}
                   />
 
-                  {/* closed, the title runs up the slat */}
-                  <span
-                    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+                  {/* closed, the title runs up the slat, and the whole slat is the button that opens it */}
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    aria-label={passion.title}
+                    tabIndex={open ? -1 : 0}
+                    onFocus={() => {
+                      if (!open) openPanel(index);
+                    }}
+                    onClick={() => openPanel(index)}
+                    className={`focus-visible:outline-accent absolute inset-0 flex items-center justify-center rounded-2xl transition-opacity duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 ${
                       open ? "pointer-events-none opacity-0" : "opacity-100"
                     }`}
                   >
                     <span className="rotate-180 font-mono text-sm tracking-[0.25em] whitespace-nowrap text-white uppercase [writing-mode:vertical-rl]">
                       {passion.title}
                     </span>
-                  </span>
+                  </button>
+
+                  {open ? (
+                    <PhotoArrows passion={passion} onStep={step} />
+                  ) : null}
 
                   {/* open, the caption sits under the photo the way a post does */}
                   <span
@@ -242,13 +311,17 @@ export function Journey() {
                       <span className="text-text text-lg font-bold">
                         {passion.title}
                       </span>
-                      <FrameDots passion={passion} frame={frame} />
+                      <FrameDots
+                        passion={passion}
+                        frame={frame}
+                        onPick={setFrame}
+                      />
                     </span>
                     <span className="text-muted mt-1.5 block max-w-xl text-[15px] leading-relaxed">
                       {passion.blurb}
                     </span>
                   </span>
-                </button>
+                </div>
               );
             })}
           </div>
@@ -305,11 +378,23 @@ export function Journey() {
                     <div className="overflow-hidden">
                       <div className="px-6 pt-5 pb-6">
                         {passion.images.length > 0 ? (
-                          <div className="relative mb-4 aspect-[16/10] w-full overflow-hidden rounded-xl">
+                          <div className="relative mb-3 aspect-[16/10] w-full overflow-hidden rounded-xl">
                             <PassionPhotos
                               passion={passion}
                               frame={index === active && open ? frame : 0}
                               sizes="92vw"
+                            />
+                            {index === active && open ? (
+                              <PhotoArrows passion={passion} onStep={step} />
+                            ) : null}
+                          </div>
+                        ) : null}
+                        {index === active && open ? (
+                          <div className="mb-3 flex justify-end">
+                            <FrameDots
+                              passion={passion}
+                              frame={frame}
+                              onPick={setFrame}
                             />
                           </div>
                         ) : null}
