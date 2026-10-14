@@ -28,7 +28,7 @@ export function GET() {
 
   const body = `# ${site.name}
 
-> ${site.role} at McMaster University, working across software, embedded systems and hardware diagnostics.
+> ${site.role} at McMaster University, working across software, machine learning, embedded systems and hardware diagnostics.
 
 ${site.bio.join("\n\n")}
 

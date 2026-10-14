@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { MediaSlot } from "@/components/MediaSlot";
+import { ProjectGallery } from "@/components/ProjectGallery";
 import { SectionHeading } from "@/components/SectionHeading";
 import { site } from "@/content/site";
 
@@ -37,16 +37,12 @@ export function Projects() {
                 key={project.title}
                 className="group grid items-center gap-8 md:grid-cols-2 md:gap-12"
               >
-                {/* the shot, glowing softly so the row has a focal point even before the copy */}
+                {/* the shots, clicked through rather than cycled so nothing moves on its own */}
                 <div className={flip ? "md:order-2" : undefined}>
-                  <div className="border-border bg-surface relative aspect-[16/10] w-full overflow-hidden rounded-2xl border shadow-[0_0_70px_-45px_var(--accent)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_0_70px_-28px_var(--accent)]">
-                    <MediaSlot
-                      src={project.imageUrl}
-                      alt={`${project.title} screenshot`}
-                      label="screenshot"
-                      className="h-full w-full rounded-none"
-                    />
-                  </div>
+                  <ProjectGallery
+                    title={project.title}
+                    images={project.images ?? []}
+                  />
                 </div>
 
                 <div className={flip ? "md:order-1" : undefined}>
@@ -55,6 +51,11 @@ export function Projects() {
                       {String(index + 1).padStart(2, "0")}
                     </span>{" "}
                     / {project.category}
+                    {project.status ? (
+                      <span className="border-accent/50 text-accent ml-3 inline-block rounded-full border px-2 py-0.5 align-middle text-[10px] tracking-[0.14em]">
+                        {project.status}
+                      </span>
+                    ) : null}
                   </p>
 
                   <h3 className="text-text mt-3 text-2xl leading-tight font-bold sm:text-3xl">

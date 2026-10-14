@@ -87,7 +87,8 @@ export function Contact() {
         <div>
           <SectionHeading label="Contact">Let&apos;s talk</SectionHeading>
           <p className="text-muted mt-5 text-lg">
-            Reach out if you want to work together or just talk shop.
+            I&apos;m looking for a Winter 2027 co-op. If you&apos;re hiring, or
+            just want to talk about something I built, send me a note.
           </p>
         </div>
 

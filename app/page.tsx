@@ -25,12 +25,10 @@ const lastName = nameParts[nameParts.length - 1];
 
 // lines the hero cycles through, module const so the ref stays stable
 const HERO_PHRASES = [
-  "Seeking internships for Winter 2027.",
-  "I like making things and figuring out how they work.",
+  "Looking for a Winter 2027 co-op.",
+  "Currently building a Catan coach.",
+  "Last build: a robot that reads your tone.",
   "Happy to talk projects, or basketball.",
-  "Always building something new.",
-  "Lets Connect!",
-  "Welcome to my website.",
 ];
 
 // the hero contact marks. entries with an empty url drop out rather than render a dead link

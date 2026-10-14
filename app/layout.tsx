@@ -35,7 +35,7 @@ const dancingScript = Dancing_Script({
   display: "swap",
 });
 
-const description = `${site.role} at McMaster University. Instrument diagnostics and calibration tooling at Hoskin Scientific, embedded and full stack projects, and a standing technical role alongside school.`;
+const description = `${site.role} at McMaster University. Calibration software and board-level repair at Hoskin Scientific, plus projects in game AI, machine learning, embedded systems and full stack web.`;
 
 export const metadata: Metadata = {
   // every relative url below resolves against this, so og:image and canonical come out absolute

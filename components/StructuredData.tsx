@@ -54,7 +54,9 @@ export function StructuredData() {
         creator: { "@id": personId },
         ...(project.sourceUrl ? { codeRepository: project.sourceUrl } : {}),
         ...(project.demoUrl ? { url: project.demoUrl } : {}),
-        ...(project.imageUrl ? { image: `${siteUrl}${project.imageUrl}` } : {}),
+        ...(project.images?.length
+          ? { image: project.images.map((image) => `${siteUrl}${image.src}`) }
+          : {}),
         keywords: project.tech.join(", "),
       })),
     ],

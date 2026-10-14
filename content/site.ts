@@ -33,15 +33,26 @@ export interface EducationItem {
   logoUrl?: string;
 }
 
+export interface ProjectImage {
+  src: string;
+  alt: string;
+  // short line under the frame, says what the picture is
+  caption?: string;
+  // diagrams and charts sit whole on white instead of being cropped to fill the frame
+  fit?: "cover" | "contain";
+}
+
 export interface ProjectItem {
   title: string;
   category: string;
+  // small tag beside the category, e.g. "In progress"
+  status?: string;
   description: string;
   tech: string[];
   // longer write up shown when the card is expanded
   detail?: string[];
-  // thumbnail shown at the head of the row, falls back to a placeholder frame
-  imageUrl?: string;
+  // clicked through in order, the first one is the cover. empty shows a placeholder frame
+  images?: ProjectImage[];
   demoUrl?: string;
   sourceUrl?: string;
 }
@@ -120,19 +131,19 @@ export const site: SiteContent = {
   name: "Paramveer Multani",
   role: "Computer Engineering Co-op Student",
   tagline:
-    "I take systems apart to understand them, then build something better with what I learn.",
+    "Computer Engineering student at McMaster. I build software, embedded hardware, and lately machine learning models.",
   bio: [
-    "I'm a Computer Engineering co-op student at McMaster University. I've done instrument diagnostics and calibration tooling at Hoskin Scientific, and I keep a part time technical role at BS Transportation running alongside school.",
-    "Outside of coursework I build my own projects, usually something that involves pulling a system apart to see how it actually works. Recent ones include reverse engineering a board game's network protocol and building a 3D spatial mapping rig from a time of flight sensor.",
+    "I'm in Computer Engineering at McMaster. This summer I was an instrument technician intern at Hoskin Scientific, repairing scientific instruments down to the board and writing the calibration software that every Hoskin office in Canada now uses.",
+    "Most of my projects start with wanting to know how something works. Right now that's Hex Coach, a trainer for Catan-style games with its own rules engine and bots. Before that I built a companion robot that reads emotion from your words, voice and face, and a scanner that maps a room using one distance sensor on a motor.",
   ],
   location: "Toronto, Ontario",
-  availability: "Open to connecting",
+  availability: "Looking for a Winter 2027 co-op",
 
   about: {
     approach:
-      "I like to fully understand a system before I touch it, whether that means tracing a wiring harness by hand or decoding an undocumented network protocol frame by frame.",
+      "I want to understand a system before I change it. At Hoskin that meant probing a dead board one component at a time. On Hex Coach it means checking the game state after every move of a thousand simulated games. On the robot project it meant scoring the test set once, at the very end, and publishing the result even though it wasn't the one I wanted.",
     whatIDo:
-      "Right now that's a mix of coursework, a couple of personal engineering projects, and part time technical work.",
+      "Back in classes this fall, building Hex Coach on the side, and still working part time at BS Transportation.",
   },
 
   experience: [
@@ -145,16 +156,19 @@ export const site: SiteContent = {
       end: "Sep 2026",
       logoUrl: "/logos/hoskin.png",
       summary:
-        "Instrument diagnostics and calibration work for a scientific equipment distributor, from board level repair on the bench through to a reporting tool that now runs in every Hoskin office in Canada.",
+        "Hoskin sells and services scientific instruments across Canada. I spent the summer on the repair and calibration bench, and wrote software that took most of the busywork out of calibration.",
       bullets: [
-        "Built a browser based offline tool in JavaScript and ExcelJS that parses instrument CSV exports into calibration worksheets, cutting report prep from 10 minutes to under 1.",
-        "Pitched the tool to management unprompted. It was approved and deployed to all Hoskin offices across Canada, supporting 20+ calibration reports daily.",
-        "Performed PCB level diagnostics on 100+ scientific instruments, isolating failed components via multimeter testing and restoring function through resoldering and part replacement.",
-        "Executed lifecycle testing and certification across YSI, DJI, Sontek, and TSI lines, covering calibration, continuity testing, firmware updates, and manufacturer escalation.",
+        "Wrote a browser tool in JavaScript and ExcelJS that turns an instrument's CSV export into a finished calibration worksheet. Report prep went from about 10 minutes to under 1, and it works offline.",
+        "Pitched the tool to management on my own. They approved it and rolled it out to every Hoskin office in Canada, where it now backs 20+ calibration reports a day.",
+        // TODO: add the model type, the sensors it covered, and a before/after number
+        "Built a machine learning model to automate sensor calibration.",
+        "Brought 100+ instruments back into service with board-level repair: finding the failed component with a multimeter, then resoldering or replacing it.",
+        "Ran calibration, continuity testing, firmware updates and certification on YSI, DJI, Sontek and TSI equipment, and escalated faults to the manufacturer when they couldn't be fixed on the bench.",
       ],
       skills: [
         "JavaScript",
         "ExcelJS",
+        "Machine Learning",
         "PCB Diagnostics",
         "Multimeter Testing",
         "Soldering",
@@ -169,11 +183,11 @@ export const site: SiteContent = {
       end: "Present",
       icon: "truck",
       summary:
-        "A standing technical role I have kept running alongside school, automating the freight paperwork and keeping the fleet's electrical systems diagnosed and repaired.",
+        "A part-time job I've kept since 2021, alongside school. I handle a mix of office automation and electrical work on the trucks.",
       bullets: [
-        "Automated Avaal freight manifest generation with a Python script, cutting per manifest time from 5 minutes to under 2 and recovering 50+ hours a year.",
-        "Rebuilt payroll and expense tracking in Excel, replacing manual entry and reducing transcription errors across weekly reporting.",
-        "Diagnosed and repaired truck electrical systems by tracing and reorganizing wiring, cutting diagnostic time 25 percent and fleet downtime 20 percent.",
+        "Wrote a Python script that generates Avaal freight manifests. Each one went from 5 minutes to under 2, which adds up to more than 50 hours a year.",
+        "Moved payroll and expense tracking from hand entry into Excel, which got rid of the transcription errors in weekly reporting.",
+        "Diagnosed and repaired truck electrical faults by tracing and reorganizing the wiring. Diagnosis got 25% faster and fleet downtime dropped by 20%.",
       ],
       skills: ["Python", "Excel", "Electrical Diagnostics"],
     },
@@ -193,12 +207,13 @@ export const site: SiteContent = {
         "Data Structures and Algorithms",
         "Software Development",
         "Artificial Intelligence",
-        "Digital System Design",
+        "Advanced Probability and Random Processes",
+        "Digital Systems Design",
+        "Signals and Systems",
         "Computer Systems Integration",
         "Microprocessors",
-        "Electronic Devices and Circuits",
       ],
-      honors: ["First Year Deans Honour Roll"],
+      honors: ["First Year Dean's Honour List"],
     },
     {
       school: "Saltfleet District High School",
@@ -220,18 +235,137 @@ export const site: SiteContent = {
     },
   ],
 
-  // draft descriptions and detail, Param to confirm names and rewrite the copy
   projects: [
+    {
+      title: "Hex Coach",
+      category: "Game AI / Full Stack",
+      status: "In progress",
+      description:
+        "A trainer for Catan-style board games. You play against bots while a coach explains which moves were good and why. It all runs on a rules engine I wrote from scratch in Python.",
+      detail: [
+        "The idea is chess.com for a settle-and-trade hex game. Play the bots, ask for a hint on any turn, watch a win-chance bar move, and practise opening placements, which decide more games than anything else.",
+        "The engine covers the full base rules: seeded boards with no touching 6s and 8s, snake-order setup, production, the robber and discards on a 7, bank shortages, port trades, and Longest Road as a depth-first search over each player's roads. A game state is never edited in place, so the same seed and moves always replay the same game.",
+        "Hypothesis property tests check invariants after every move, like each resource always totalling 19 cards and no two buildings touching. A thousand simulated games, about 900,000 moves, zero violations.",
+        "The first bot scores corners by pips, resource variety and ports, then follows a build order. Over 300 seeded games with rotated seating it beat two random bots 99% of the time (95% CI 97.9 to 100%), and the whole tournament ran in under two seconds.",
+        "A FastAPI server holds game sessions and streams bot moves to a Next.js front end over a WebSocket, and the board is hand-drawn SVG. Next is a Monte Carlo Tree Search bot for the medium and hard levels, which the coach will also use to pick and explain its hints.",
+      ],
+      tech: [
+        "Python",
+        "FastAPI",
+        "WebSockets",
+        "pytest",
+        "Hypothesis",
+        "Next.js",
+        "TypeScript",
+        "Zustand",
+      ],
+      images: [
+        {
+          src: "/projects/hexcoach-home.jpg",
+          alt: "Hex Coach home page with a generated hex board",
+          caption: "Home page. Every board is generated from a seed.",
+        },
+        {
+          src: "/projects/hexcoach-game.jpg",
+          alt: "A Hex Coach game against two bots, with the coach controls and win-chance bar",
+          caption: "A game against two bots, with the coach set to nudge.",
+        },
+        {
+          src: "/projects/hexcoach-openings.jpg",
+          alt: "Hex Coach opening practice, with every legal corner scored on the board",
+          caption: "Opening practice. Bigger, brighter corners score higher.",
+        },
+      ],
+      sourceUrl: "https://github.com/paramveer30/Hex-Coach",
+    },
+    {
+      title: "Emotion-Aware Companion Robot",
+      category: "Machine Learning / Human Computer Lab",
+      description:
+        "My entry for the Human Computer Lab ML Challenge. The robot listens to what you say, how you say it and the look on your face, then answers out loud about half a second after you stop talking. Everything runs on one PC with a 6 GB GPU.",
+      detail: [
+        "The task was to read emotion from spoken turns in MELD, a set of dialogue clips from Friends labelled with seven emotions, and have a robot respond to it live.",
+        "Each turn goes through three models. Whisper transcribes the speech and a RoBERTa model I fine-tuned reads the words, with the last two turns as context. A small head I trained on frozen WavLM features reads the voice. A face model runs on webcam frames while you're still talking, so it adds no wait at the end.",
+        "The three predictions are averaged, and a temperature fitted on the dev set makes the confidence it shows match how often it's actually right. When the voice or face disagrees with the words, like a happy sentence said angrily, the robot checks in instead of guessing. Replies stream from Qwen2.5-1.5B through Ollama and Kokoro speaks them one sentence at a time.",
+        "The emotion is ready 0.28 s after you stop talking, and the robot starts speaking at 0.58 s. On the MELD test set the text model reaches 0.638 weighted F1, against 0.313 for always guessing neutral. Adding the voice helped on dev but not on test. I scored test once, at the end, and reported that rather than retuning to make it look better.",
+        "The whole system is 2.18 billion parameters, inside the challenge's 6 billion cap, with 206 tests that run on a CPU in about 15 seconds.",
+      ],
+      tech: [
+        "Python",
+        "PyTorch",
+        "Transformers",
+        "Whisper",
+        "WavLM",
+        "Ollama",
+        "FastAPI",
+      ],
+      images: [
+        {
+          src: "/projects/hcl-page.jpg",
+          alt: "The robot's local web page playing a MELD clip, with each model's probabilities and timings",
+          caption: "Each model's read, the fused result, and timings per turn.",
+        },
+        {
+          src: "/projects/hcl-system.jpg",
+          alt: "Diagram of one turn: voice detection, speech, voice and face models, fusion, reply and speech",
+          caption:
+            "One turn through the system, from microphone to spoken reply.",
+          fit: "contain",
+        },
+        {
+          src: "/projects/hcl-results.jpg",
+          alt: "Bar chart of weighted and macro F1 on the MELD test split for each model",
+          caption:
+            "F1 on the MELD test split. Text carries most of the signal.",
+          fit: "contain",
+        },
+      ],
+      sourceUrl: "https://github.com/paramveer30/HCL-ML-Challenge",
+    },
+    {
+      title: "Indoor LiDAR Spatial Mapping",
+      category: "Embedded Systems / COMPENG 2DX3",
+      description:
+        "A room scanner made from one time-of-flight distance sensor on a stepper motor. It sweeps 360 degrees, moves forward, sweeps again, and turns the readings into a 3D wireframe of the space.",
+      detail: [
+        "An MSP432E401Y (ARM Cortex-M4F) drives a 28BYJ-48 stepper through a ULN2003 driver and reads a VL53L1X sensor over I2C, taking 64 distance samples per revolution. Two buttons start and pause a scan, and LEDs show what it's doing.",
+        "The firmware is bare-metal C written in Keil, with GPIO interrupts, SysTick timing, I2C and UART all set up by hand.",
+        "Readings stream to a PC over UART at 115200 bps. A Python script converts each sweep from polar to Cartesian coordinates, stacks the sweeps 100 mm apart, and draws the result in Matplotlib. These scans are of a hallway in McMaster's Engineering Technology Building.",
+        "The parts came to about $80.",
+      ],
+      tech: ["C", "ARM Cortex-M4F", "I2C", "UART", "Python", "Matplotlib"],
+      images: [
+        {
+          src: "/projects/spatial-mapping.jpg",
+          alt: "The microcontroller, stepper motor and ToF sensor next to a 3D wireframe scan",
+          caption: "The hardware, and the scan it produced.",
+          fit: "contain",
+        },
+        {
+          src: "/projects/lidar-front.jpg",
+          alt: "Front view of the hallway wireframe scan",
+          caption: "Front view of the hallway scan.",
+          fit: "contain",
+        },
+        {
+          src: "/projects/lidar-side.jpg",
+          alt: "Side view of the hallway wireframe scan",
+          caption: "Side view, ten sweeps 100 mm apart.",
+          fit: "contain",
+        },
+      ],
+      sourceUrl: "https://github.com/paramveer30/Lidar-Spatial-Mapping-System",
+    },
     {
       title: "Tamalife",
       category: "Mobile / OpenAI Build Week",
       description:
-        "A subscription tracker disguised as a pet game. Every bill, warranty, and subscription lives as a creature whose health is computed from its real renewal date, so letting one lapse is something you can actually see.",
+        "A subscription tracker that plays like a pet game. Every bill, warranty and subscription is a creature whose health drops as its renewal date gets closer, so a forgotten charge is hard to miss.",
       detail: [
-        "Subscriptions are designed to be forgotten, and every tracker on the market is a spreadsheet you have to remember to open. Tamalife turns each recurring cost into a creature in a pixel art garden whose health is derived live from its renewal or expiry date, so one left alone visibly withers until you renew, cancel, or switch. Snap a receipt and the parsing pipeline hatches a new creature with no manual entry.",
-        "Built in a team of four at OpenAI Build Week. I led UI/UX, designing the dashboard, creature detail and resolve flows along with a shared component and theming system that re-skins every screen from a single day and night palette.",
-        "I also built the push notification system end to end. Firebase Cloud Messaging on the client, device token storage in Supabase, scheduled reminder delivery off the Celery beat schedule that scans renewal and warranty thresholds, a preferences screen for channels and reminder timing, and deep linked tap flows that land on the right creature.",
-        "Native Firebase meant moving the project onto Expo and EAS development builds after Expo Go turned out to be incompatible, then validating the whole path, receipt scan to push to landing screen, across physical devices.",
+        "Built with three teammates at OpenAI Build Week. Most trackers fail because nobody opens them, so we made one you'd want to check on: a pixel-art garden where each recurring cost lives as a creature. Snap a photo of a receipt and a new one hatches.",
+        "I led UI/UX across 15+ screens, including the dashboard, creature detail and the renew and cancel flows, and built a shared component and theming system that re-skins the whole app from one day palette and one night palette.",
+        "I also owned push notifications end to end: Firebase Cloud Messaging on the phone, device tokens in Supabase, reminders sent by a Celery beat job that scans for upcoming renewals and expiring warranties, a settings screen for timing, and deep links that open the right creature.",
+        "Expo Go can't load native Firebase modules, so I moved the team to Expo/EAS development builds and tested the full path, from receipt scan to notification to the right screen, on real phones.",
       ],
       tech: [
         "React Native",
@@ -240,20 +374,55 @@ export const site: SiteContent = {
         "Firebase Cloud Messaging",
         "Supabase",
         "FastAPI",
+        "Celery",
       ],
-      imageUrl: "/projects/tamalife.jpg",
+      images: [
+        {
+          src: "/projects/tamalife.jpg",
+          alt: "Tamalife screens showing subscription creatures in a pixel-art garden",
+        },
+      ],
       sourceUrl: "https://github.com/paramveer30/Codex-Hackathon-Tamalife",
+    },
+    {
+      title: "Vantage Labs",
+      category: "Web / Live Site",
+      description:
+        "The live marketing site for Vantage Labs, a custom software consultancy. Static pages, a few interactive 3D scenes, and a lead pipeline that emails every contact form and booked call.",
+      detail: [
+        "Built on the Next.js App Router with React 19 and strict TypeScript. Every public page is static, and the dynamic work lives in two API routes.",
+        "The 3D scenes are React Three Fiber components, lazy-loaded so they don't hold up the first paint. On phones the animated hero is swapped for a static one and the heavier mockups are frozen, which keeps mobile fast.",
+        "Leads are the part that has to work. One route takes the contact form, the other receives Cal.com booking webhooks and verifies their signatures, and both send email through Resend. In production the app fails at startup if its email keys are missing, so enquiries can't be dropped silently.",
+        "CI runs lint, the Vitest suite and a full build on every push.",
+      ],
+      tech: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "React Three Fiber",
+        "Resend",
+        "Vitest",
+      ],
+      images: [
+        {
+          src: "/projects/vantage-labs.jpg",
+          alt: "Vantage Labs home page",
+        },
+      ],
+      demoUrl: "https://vantagelabs.vercel.app/",
+      sourceUrl: "https://github.com/paramveer30/vantagelabsai",
     },
     {
       title: "LetMeKnock",
       category: "Web / Full Stack",
       description:
-        "A two sided housing marketplace for students, pairing listings and live landlord messaging with real commute times from every property to campus.",
+        "A student housing marketplace with live landlord messaging and real commute times from every listing to campus.",
       detail: [
-        "Student housing search is two problems at once. Listings live in a dozen places, and the thing that actually decides whether a place works, how long it takes to get to campus, is never on the listing. LetMeKnock puts both in one view, around 9,100 lines of TypeScript across client and server.",
-        "The messaging layer runs on Socket.IO with conversation rooms, read receipts, unread count tracking and event driven notifications, sitting alongside 24 REST endpoints covering listings, image galleries, bookmarks and owner scoped permissions.",
-        "Each property is plotted on a Leaflet map with a campus pin, distance rings and route polylines, and OpenRouteService and the TravelTime API turn that into walk, bike, drive and transit times to campus rather than a straight line distance.",
-        "Underneath it is a normalised 12 table Postgres schema modelled in Drizzle ORM, with Zod validators shared end to end so the client and server agree on shape at compile time, and a 40 plus component design system built on Radix and Tailwind.",
+        "Finding student housing means checking a dozen sites, and none of them tell you the one thing that matters most: how long it takes to get to class. LetMeKnock puts listings and commute times in the same place, in about 9,100 lines of TypeScript.",
+        "Messaging runs on Socket.IO with conversation rooms, read receipts and unread counts. Alongside it are 24 REST endpoints for listings, photo galleries, bookmarks and owner-only permissions.",
+        "Each listing sits on a Leaflet map with a campus pin, distance rings and route lines. OpenRouteService and the TravelTime API give walk, bike, drive and transit times instead of a straight-line distance.",
+        "The data is a 12-table Postgres schema in Drizzle ORM, with Zod validators shared by client and server so both sides agree on every shape at compile time.",
       ],
       tech: [
         "React",
@@ -265,74 +434,51 @@ export const site: SiteContent = {
         "Leaflet",
         "Supabase",
       ],
-      imageUrl: "/projects/letmeknock.jpg",
+      images: [
+        {
+          src: "/projects/letmeknock.jpg",
+          alt: "LetMeKnock listing map with commute times",
+        },
+      ],
       // repo taken down, so no source link rather than a dead one
-    },
-    {
-      title: "Vantage Labs",
-      category: "Web / Live Site",
-      description:
-        "A marketing site for a custom software consultancy, with interactive 3D scenes and a lead pipeline that routes contact forms and booking webhooks straight to email.",
-      detail: [
-        "A deployed marketing site for a software consultancy, built on the Next.js App Router with React 19 and TypeScript in strict mode. The public pages are static so they serve fast, with the dynamic work isolated to two API routes.",
-        "The landing scenes run on React Three Fiber over three.js, so the 3D is composed as React components and driven by the same state as the rest of the page rather than living in a separate canvas script.",
-        "Lead capture is the part that has to actually work. One route takes the contact form, another receives Cal.com booking webhooks, and both notify through Resend, so an enquiry or a booked call turns into an email without anyone watching a dashboard.",
-        "Kept deliberately small in scope, with Vitest covering the pieces worth testing and a readable commit history.",
-      ],
-      tech: [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "Tailwind CSS",
-        "React Three Fiber",
-        "three.js",
-        "Resend",
-      ],
-      imageUrl: "/projects/vantage-labs.jpg",
-      demoUrl: "https://vantagelabs.vercel.app/",
-      sourceUrl: "https://github.com/paramveer30/vantagelabsai",
-    },
-    {
-      title: "This Portfolio",
-      category: "Web / Personal",
-      description:
-        "The site you are reading, built from scratch rather than from a template, with every piece of copy and layout driven off a single typed content file.",
-      detail: [
-        "One page, built on the Next.js App Router with TypeScript in strict mode and Tailwind. Every section reads from one typed content file, so adding a role, a project or a hobby is a data change rather than a layout change.",
-        "The theme is a set of CSS custom properties with a light and a dark palette, following the operating system by default and remembering an explicit choice, with the swap applied before first paint so the page never flashes the wrong colours.",
-        "The hero sits on a canvas of drifting nodes that link up as they near each other and bend away from the cursor. Sections fade in as they scroll into view, and the hobbies are an accordion that expands on hover and cycles its photos.",
-        "Motion is written to disappear entirely under prefers-reduced-motion, and the palette is checked against WCAG contrast ratios rather than picked by eye.",
-      ],
-      tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Vitest"],
-      imageUrl: "/projects/portfolio.jpg",
-      sourceUrl: "https://github.com/paramveer30/Personal-Portfolio",
-    },
-    {
-      title: "Spatial Mapping Using Time-of-Flight Sensor",
-      category: "Embedded Systems",
-      description:
-        "An embedded 360 degree spatial mapping system built with a VL53L1X time of flight sensor and a stepper motor, reconstructing 3D models of indoor spaces from I2C and UART data.",
-      detail: [
-        "A stepper motor sweeps the VL53L1X time of flight sensor through a full rotation while an MSP432 reads distance samples over I2C and streams them out over UART.",
-        "A host side script turns the polar sweeps into a point cloud and stitches successive rotations into a rough 3D model of the room.",
-      ],
-      tech: ["C++", "I2C", "UART", "VL53L1X"],
-      imageUrl: "/projects/spatial-mapping.jpg",
-      sourceUrl: "https://github.com/paramveer30/Lidar-Spatial-Mapping-System",
     },
     {
       title: "Automated Baggage Handling System",
       category: "Robotics / Team Project",
       description:
-        "A luggage routing system built with a Q-Arm, servo table, and barcode scanner, with Python control algorithms reaching 88 percent seat detection accuracy.",
+        "A luggage sorter built from a Q-Arm, a servo table and a barcode scanner, with the control logic written in Python.",
       detail: [
-        "A Q-Arm picks bags off a servo driven table, a barcode scanner reads the routing tag, and the arm places each bag in the bin for its flight.",
-        "The Python control loop handles the pick and place geometry and the sorting logic, hitting 88 percent seat detection accuracy across test runs.",
+        "The Q-Arm picks bags off a servo-driven table, the scanner reads each routing tag, and the arm drops the bag in the bin for its flight.",
+        "The Python control loop handles the pick-and-place geometry and the sorting, and reached 88% seat detection accuracy across test runs.",
       ],
-      tech: ["Python", "Q-Arm"],
-      imageUrl: "/projects/baggage-system.jpg",
+      tech: ["Python", "Quanser Q-Arm"],
+      images: [
+        {
+          src: "/projects/baggage-system.jpg",
+          alt: "The Q-Arm baggage sorting setup",
+        },
+      ],
       sourceUrl:
         "https://github.com/paramveer30/Automated-Airport-Baggage-System",
+    },
+    {
+      title: "This Portfolio",
+      category: "Web / Personal",
+      description:
+        "This site. Written from scratch in Next.js, with every word and project coming from one typed content file.",
+      detail: [
+        "One page on the Next.js App Router, TypeScript and Tailwind. Adding a job, a project or a hobby means editing the content file, not the layout.",
+        "Light and dark themes follow your system setting, remember a manual choice, and switch before the first paint so the page never flashes the wrong colours.",
+        "The hero background is a canvas of drifting nodes that link up when they get close and move away from your cursor. All motion turns off under prefers-reduced-motion, and the colours are checked against WCAG contrast ratios.",
+      ],
+      tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Vitest"],
+      images: [
+        {
+          src: "/projects/portfolio.jpg",
+          alt: "This portfolio's hero section",
+        },
+      ],
+      sourceUrl: "https://github.com/paramveer30/Personal-Portfolio",
     },
   ],
 
@@ -342,27 +488,45 @@ export const site: SiteContent = {
       items: [
         "Python",
         "C/C++",
-        "JavaScript",
         "TypeScript",
+        "JavaScript",
+        "SQL",
         "MATLAB",
         "R",
         "LaTeX",
       ],
     },
     {
-      category: "Frameworks & Tools",
+      category: "ML & Data",
+      items: ["PyTorch", "Transformers", "NumPy", "pandas", "Matplotlib"],
+    },
+    {
+      category: "Web & Backend",
+      items: [
+        "React",
+        "Next.js",
+        "React Native",
+        "Tailwind CSS",
+        "FastAPI",
+        "Express",
+        "Socket.IO",
+        "WebSockets",
+        "PostgreSQL",
+        "Supabase",
+        "Chrome Extensions (Manifest V3)",
+      ],
+    },
+    {
+      category: "Tools",
       items: [
         "Git",
         "GitHub",
-        "FastAPI",
-        "NumPy",
-        "pytest",
-        "React",
-        "Next.js",
-        "Chrome Extensions (Manifest V3)",
-        "WebSockets",
-        "ExcelJS",
+        "GitHub Actions",
+        "Docker",
         "Linux",
+        "pytest",
+        "Hypothesis",
+        "ExcelJS",
         "VS Code",
         "AutoCAD",
       ],
@@ -384,24 +548,22 @@ export const site: SiteContent = {
   ],
 
   // the ones that render large and accented, everything else sits back
-  // drafted from what the resume actually evidences, Param to adjust
   skillHighlights: [
     "Python",
     "C/C++",
-    "JavaScript",
+    "TypeScript",
+    "PyTorch",
+    "React",
+    "FastAPI",
     "Git",
-    "ExcelJS",
     "PCB Diagnostics",
-    "Soldering",
-    "Multimeter Testing",
   ],
 
-  // draft blurbs, Param to rewrite in his own voice
   passions: [
     {
       key: "parrots",
       title: "The parrots",
-      blurb: "Two cockatiels, and a house that has not been quiet since.",
+      blurb: "Two cockatiels, and the house hasn't been quiet since.",
       images: [
         "/parrots/together.jpg",
         "/parrots/yellow/1.jpg",
@@ -413,7 +575,7 @@ export const site: SiteContent = {
       key: "basketball",
       title: "Basketball",
       blurb:
-        "Pickup runs when I can find one, and a Raptors game whenever I can get a ticket.",
+        "Pickup whenever I can find a run, and a Raptors game whenever I can get a ticket.",
       images: [
         "/journey/basketball/1.jpg",
         "/journey/basketball/2.jpg",
@@ -424,7 +586,7 @@ export const site: SiteContent = {
       key: "travel",
       title: "Travelling",
       blurb:
-        "Any excuse to be somewhere new, dunes, canals, a coastline I have not seen yet.",
+        "Dunes, canals, a coastline I haven't seen yet. Any excuse to go somewhere new.",
       images: [
         "/journey/travel/1.jpg",
         "/journey/travel/2.jpg",
@@ -440,20 +602,19 @@ export const site: SiteContent = {
       key: "cars",
       title: "Cars",
       blurb:
-        "I walk the whole auto show floor every year and still leave wanting more.",
+        "I walk the whole auto show floor every year and still want another lap.",
       images: ["/journey/cars/1.jpg", "/journey/cars/2.jpg"],
     },
     {
       key: "music",
       title: "Live music",
-      blurb: "A packed arena with the lights down is hard to beat.",
+      blurb: "Hard to beat a packed arena once the lights go down.",
       images: ["/journey/music/1.jpg"],
     },
     {
       key: "outdoors",
       title: "Getting outside",
-      blurb:
-        "Early starts by the lake, farm animals, chasing a decent sunrise.",
+      blurb: "Early mornings by the lake, farm animals, the odd good sunrise.",
       images: [
         "/journey/outdoors/1.jpg",
         "/journey/outdoors/2.jpg",
@@ -464,7 +625,7 @@ export const site: SiteContent = {
     {
       key: "food",
       title: "Food",
-      blurb: "Always down to try the spot everyone keeps talking about.",
+      blurb: "If everyone's talking about a new spot, I'm going.",
       images: [
         "/journey/food/1.jpg",
         "/journey/food/2.jpg",
